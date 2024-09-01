@@ -1,0 +1,27 @@
+{
+    "BTC-USD": {
+        "price": "58,465.50",
+        "change": "-3,296.48",
+        "change_percent": "(-5.34%)"
+    },
+    "AAPL": {
+        "price": "229.00",
+        "change": "-0.79",
+        "change_percent": "(-0.34%)"
+    },
+    "MSFT": {
+        "price": "417.14",
+        "change": "+4.02",
+        "change_percent": "(+0.97%)"
+    },
+    "TSLA": {
+        "price": "214.11",
+        "change": "+7.83",
+        "change_percent": "(+3.80%)"
+    },
+    "NVDA": {
+        "price": "119.37",
+        "change": "+1.78",
+        "change_percent": "(+1.51%)"
+    }
+}

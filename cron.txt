@@ -30,5 +30,5 @@
 
 
 0 0 * * * /usr/bin/python3 /home/arvypi/Desktop/invest/1_fetch_historical_data.py
-10 0 * * * /usr/bin/python3 /home/arvypi/Desktop/invest/2_fetch_stock_data.py
-15 0 * * * /usr/bin/python3 /home/arvypi/Desktop/invest/3_draw_charts.py
+25 19 * * * /usr/bin/python3 /home/arvypi/Desktop/invest/2_fetch_stock_data.py
+27 19 * * * /usr/bin/python3 /home/arvypi/Desktop/invest/3_draw_charts.py

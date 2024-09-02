@@ -11,3 +11,4 @@
 - [ ] fondu duomenys - https://www.swedbank.lt/private/investor/funds/allFunds/list/details
 - [ ] humidity inside
 - [ ] temperature out/in
+- [ ] log file for when was fetched and if successs or not (aisku matai in flask terminal, but anyway)

@@ -15,7 +15,7 @@ def home():
 # Route to read stock data from a JSON file and return it as a JSON response
 @app.route("/read_stock_data_from_file")
 def stock_data():
-    file_path = "stock_data.json"
+    file_path = "data/stock_data.json"
     if os.path.exists(file_path):
         # Open the JSON file and load its contents
         with open(file_path, "r") as file:

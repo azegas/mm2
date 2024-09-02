@@ -56,8 +56,10 @@ def fetch_stock_data(symbols):
 
 def main():
     symbols = ["BTC-USD", "TSLA", "AAPL", "MSFT", "TM"]
+    # symbols = ["TSLA"]
+
     stock_data = fetch_stock_data(symbols)
-    with open("stock_data.json", "w") as file:
+    with open("data/stock_data.json", "w") as file:
         json.dump(stock_data, file, indent=4)
 
 

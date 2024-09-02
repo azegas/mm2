@@ -21,6 +21,9 @@ def fetch_stock_data(symbols):
         volume_element = soup.find(
             "fin-streamer", {"data-field": "regularMarketVolume"}
         )
+        one_year_estimate_element = soup.find(
+            "fin-streamer", {"data-field": "targetMeanPrice"}
+        )
 
         stock_data[symbol] = {
             "price": (
@@ -41,13 +44,18 @@ def fetch_stock_data(symbols):
                 if volume_element
                 else "N/A"
             ),
+            "one_year_estimate": (
+                one_year_estimate_element.get_text(strip=True)
+                if one_year_estimate_element
+                else "N/A"
+            ),
         }
 
     return stock_data
 
 
 def main():
-    symbols = ["BTC-USD", "TSLA"]
+    symbols = ["BTC-USD", "TSLA", "AAPL", "MSFT", "TM"]
     stock_data = fetch_stock_data(symbols)
     with open("stock_data.json", "w") as file:
         json.dump(stock_data, file, indent=4)

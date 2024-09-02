@@ -22,6 +22,13 @@
 # 
 # m h  dom mon dow   command
 
+
+# crontab -l > cron.txt
+# crontab cron.txt
+# crontab -e
+# crontab -l
+
+
 0 0 * * * /usr/bin/python3 /home/arvypi/Desktop/invest/1_fetch_historical_data.py
 10 0 * * * /usr/bin/python3 /home/arvypi/Desktop/invest/2_fetch_stock_data.py
 15 0 * * * /usr/bin/python3 /home/arvypi/Desktop/invest/3_draw_charts.py

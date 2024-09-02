@@ -1,24 +1,39 @@
+/* Ensure the HTML and body take up full height */
 html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
     height: 100%;
-    box-sizing: border-box;
+    margin: 0; /* Remove default margin */
 }
 
 .grid-container {
-    background-color: #40E0D0;
-    padding: 5px;
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    gap: 5px 5px;
-    grid-auto-flow: row;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box; /* Ensure padding is included in width/height */
+    grid-template-columns: 2fr 1fr; /* First column is twice the width of the second */
+    grid-template-rows: repeat(5, 1fr); /* Create 5 equal rows */
+    height: 100vh; /* Full viewport height */
+    gap: 10px; /* Space between columns */
+    padding: 10px; /* Padding around the container */
 }
-  
-.card {
-    background-color: white; 
+
+.column {
+    display: flex;
+    flex-direction: column; /* Stack rows vertically in each column */
+    gap: 10px; /* Space between rows */
+    padding: 10px;
+}
+
+/* Specific styles for first column */
+.column-1 {
+    background-color: #e0f7fa; /* Light cyan for visual distinction */
+}
+
+/* Specific styles for second column */
+.column-2 {
+    background-color: #fce4ec; /* Light pink for visual distinction */
+}
+
+.row {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

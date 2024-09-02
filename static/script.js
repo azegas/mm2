@@ -13,6 +13,7 @@ function fetchStockData() {
                             <span class="price">${details.price}</span>
                             <span class="change">${details.change}</span>
                             <span class="change-percent">${details.change_percent}</span>
+                            <img src="/static/images/${symbol}_high_prices.png" alt="${symbol} High Prices Chart" class="stock-chart">
                         </div>
                     `;
                 }

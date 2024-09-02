@@ -1,6 +1,7 @@
 
 stock_data.json
 *.csv
+*.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

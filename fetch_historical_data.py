@@ -1,4 +1,13 @@
 import requests
+from config import (
+    SYMBOLS,
+    HISTORICAL_URL,
+    PERIOD1,
+    PERIOD2,
+    INTERVAL,
+    EVENTS,
+    INCLUDE_ADJUSTED_CLOSE,
+)
 
 
 # getting 429 status code. Adding headers is a fix for it.
@@ -12,9 +21,9 @@ headers = {
 }
 
 
-def fetch_historical_data(symbols):
-    for symbol in symbols:
-        csv_url = f"https://query1.finance.yahoo.com/v7/finance/download/{symbol}?period1=1693658112&period2=1725280512&interval=1d&events=history&includeAdjustedClose=true"
+def fetch_historical_data():
+    for symbol in SYMBOLS:
+        csv_url = f"{HISTORICAL_URL}{symbol}?period1={PERIOD1}&period2={PERIOD2}&interval={INTERVAL}&events={EVENTS}&includeAdjustedClose={INCLUDE_ADJUSTED_CLOSE}"
         file_path = f"data/{symbol}_historical.csv"
 
         try:
@@ -36,8 +45,7 @@ def fetch_historical_data(symbols):
 
 
 def main():
-    symbols = ["TSLA", "TM"]
-    fetch_historical_data(symbols)
+    fetch_historical_data()
 
 
 if __name__ == "__main__":

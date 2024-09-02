@@ -1,12 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+from config import SYMBOLS
 
 
-def fetch_stock_data(symbols):
+def fetch_stock_data():
     stock_data = {}
 
-    for symbol in symbols:
+    for symbol in SYMBOLS:
         url = f"https://finance.yahoo.com/quote/{symbol}/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
@@ -55,10 +56,7 @@ def fetch_stock_data(symbols):
 
 
 def main():
-    symbols = ["BTC-USD", "TSLA", "AAPL", "MSFT", "TM"]
-    # symbols = ["TSLA"]
-
-    stock_data = fetch_stock_data(symbols)
+    stock_data = fetch_stock_data()
     with open("data/stock_data.json", "w") as file:
         json.dump(stock_data, file, indent=4)
 

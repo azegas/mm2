@@ -18,6 +18,9 @@ def fetch_stock_data(symbols):
         change_percent_element = soup.find(
             "fin-streamer", {"data-testid": "qsp-price-change-percent"}
         )
+        volume_element = soup.find(
+            "fin-streamer", {"data-field": "regularMarketVolume"}
+        )
 
         stock_data[symbol] = {
             "price": (
@@ -31,6 +34,11 @@ def fetch_stock_data(symbols):
             "change_percent": (
                 change_percent_element.get_text(strip=True)
                 if change_percent_element
+                else "N/A"
+            ),
+            "volume": (
+                volume_element.get_text(strip=True)
+                if volume_element
                 else "N/A"
             ),
         }

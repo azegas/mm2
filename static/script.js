@@ -10,13 +10,23 @@ function fetchStockData() {
             
             // Loop through each stock symbol and its details in the received data
             for (const [symbol, details] of Object.entries(data)) {
+                // Determine the background color based on the price change
+                let cardClass = 'card'; // Default class for card
+                if (details.change.includes('-')) {
+                    cardClass += ' red-background'; // Class for negative change
+                } else if (details.change.includes('+')) {
+                    cardClass += ' green-background'; // Class for positive change
+                }
+                
                 // Build the HTML for each stock item and append it to the 'html' string
                 html += `
-                    <div>
+                    <div class="${cardClass}">
                         <h2>${symbol}</h2>
                         <p>Price: ${details.price}</p>
                         <p>Change: ${details.change}</p>
                         <p>Change Percent: ${details.change_percent}</p>
+                        <p>Volume: ${details.volume}</p>
+                        <p>One year estimate: ${details.one_year_estimate}</p>
                     </div>
                 `;
             }

@@ -9,3 +9,5 @@
 - [ ] notification when big change happened or smth like that. or simply show todays trends in telegram kaip zinute
 - [ ] Running eilutė kaip NASDAQe
 - [ ] fondu duomenys - https://www.swedbank.lt/private/investor/funds/allFunds/list/details
+- [ ] humidity inside
+- [ ] temperature out/in

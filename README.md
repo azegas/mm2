@@ -12,3 +12,16 @@
 - [ ] humidity inside
 - [ ] temperature out/in
 - [ ] log file for when was fetched and if successs or not (aisku matai in flask terminal, but anyway)
+
+
+# Docs
+
+Connect to pi from windows:
+```pwsh
+ssh arvypi@raspberrypi.local
+```
+
+Copy all files(excluding some folders) to the pi
+```pwsh
+tar --exclude-vcs -czf - -C . . | ssh arvypi@raspberrypi.local "tar -xzvf - -C /home/arvypi/Desktop/invest-scp"
+```

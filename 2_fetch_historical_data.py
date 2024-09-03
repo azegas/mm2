@@ -8,6 +8,7 @@ from config import (
     EVENTS,
     INCLUDE_ADJUSTED_CLOSE,
 )
+from log_config import logger
 
 
 # getting 429 status code. Adding headers is a fix for it.
@@ -22,6 +23,8 @@ headers = {
 
 
 def fetch_historical_data():
+    logger.info("Fetch historical START")
+
     for symbol in SYMBOLS:
         csv_url = f"{HISTORICAL_URL}{symbol}?period1={PERIOD1}&period2={PERIOD2}&interval={INTERVAL}&events={EVENTS}&includeAdjustedClose={INCLUDE_ADJUSTED_CLOSE}"
         file_path = f"data/{symbol}_historical.csv"
@@ -34,14 +37,21 @@ def fetch_historical_data():
                 # Save the content to a file
                 with open(file_path, "wb") as file:
                     file.write(response.content)
-                print(f"File downloaded and saved to {file_path}")
+                logger.info(
+                    "%s - File downloaded and saved to %s", symbol, file_path
+                )
             else:
-                print(
-                    f"Failed to download file for {symbol}. Status code: {response.status_code}"
+                logger.error(
+                    "%s - failed to download file for. Status code: %s",
+                    symbol,
+                    response.status_code,
                 )
 
         except requests.exceptions.RequestException as e:
-            print(f"An error occurred: {e}")
+            logger.error(f"An error occurred: {e}")
+
+    logger.info("Fetched historical for %s", SYMBOLS)
+    logger.info("Fetched historical END")
 
 
 def main():

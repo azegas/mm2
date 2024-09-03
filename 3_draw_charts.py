@@ -2,9 +2,12 @@ import matplotlib.pyplot as plt
 import csv
 from datetime import datetime
 from config import SYMBOLS
+from log_config import logger
 
 
 def generate_stock_chart():
+
+    logger.info("Generate stock chart START")
 
     for symbol in SYMBOLS:
         # Define file paths
@@ -55,6 +58,14 @@ def generate_stock_chart():
         # Save the plot as an image file
         plt.savefig(image_file_path)
         plt.close()
+
+        logger.info(
+            "%s - generated and saved an image",
+            symbol,
+        )
+
+    logger.info("Generated stock charts for %s", SYMBOLS)
+    logger.info("Generate stock chart END")
 
 
 if __name__ == "__main__":

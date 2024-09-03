@@ -2,9 +2,12 @@ import requests
 from bs4 import BeautifulSoup
 import json
 from config import SYMBOLS
+from log_config import logger
 
 
 def fetch_stock_data():
+    logger.info("Fetched stock data START")
+
     stock_data = {}
 
     for symbol in SYMBOLS:
@@ -51,6 +54,15 @@ def fetch_stock_data():
                 else "N/A"
             ),
         }
+
+        logger.info(
+            "%s - fetched stock data",
+            symbol,
+        )
+
+    logger.info("Fetched stock data for %s", SYMBOLS)
+    logger.debug("Stock data %s", stock_data)
+    logger.info("Fetched stock data END")
 
     return stock_data
 

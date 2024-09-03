@@ -40,21 +40,20 @@ def generate_stock_chart_high_prices_with_volume():
         )  # Wider and shorter figure size
 
         # Plot high prices on the first y-axis
-        ax1.plot(dates, highs, marker=",", color="b", label="High Prices")
+        ax1.plot(dates, highs, marker=",", color="g", label="High Prices")
         ax1.set_title(f"High Prices and Volume for {symbol}", fontsize=12)
-        ax1.set_xlabel("Date", fontsize=10)
-        ax1.set_ylabel("High Price (USD)", fontsize=10, color="b")
-        ax1.tick_params(axis="y", labelcolor="b")
-        ax1.grid(True, linestyle="--", alpha=0.7)  # Lighter grid lines
+        ax1.set_ylabel("High Price (USD)", fontsize=10, color="0.6")
+        ax1.tick_params(axis="y", labelcolor="0.6")
+        ax1.grid(True, linestyle="--", alpha=0.3)  # Lighter grid lines
 
         # Format the y-axis labels for high prices as USD
         ax1.yaxis.set_major_formatter(StrMethodFormatter("${x:,.2f}"))
 
         # Create a second y-axis to plot the volume data
         ax2 = ax1.twinx()
-        ax2.bar(dates, volumes, alpha=0.3, color="g", label="Volume")
-        ax2.set_ylabel("Volume (Millions)", fontsize=10, color="g")
-        ax2.tick_params(axis="y", labelcolor="g")
+        ax2.bar(dates, volumes, alpha=0.3, color="0.1", label="Volume")
+        ax2.set_ylabel("Volume (Millions)", fontsize=10, color="0.6")
+        ax2.tick_params(axis="y", labelcolor="0.6")
 
         # Format the y-axis labels for volume to show numbers in millions
         ax2.yaxis.set_major_formatter(StrMethodFormatter("{x:.1f}M"))

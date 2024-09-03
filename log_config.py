@@ -8,23 +8,24 @@
 # ERROR - Due to a more serious problem, the software has not been able to perform some function.
 # CRITICAL - A serious error, indicating that the program itself may be unable to continue running.
 
-# Using logging packages instead of log() from utils.py, because each time I
-# want to debug the app, I have to add various print statements to the app,
-# then make sure I don't commit those print statements to version control when
-# I am done debugging (most of the time deleting those statements, then having
-# to rewrite them again next time I am debugging). Logging is a built in
-# package, so no additional dependencies. Logging messages can be in the code,
-# they are not intrusive. Whether the log messages are printed out or not can
-# be controlled by a single variable - level=logging.INFO. Set it to DEBUG and
-# you will see the debug logs.
-
-import os
 import logging
 
-logging.basicConfig(
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    datefmt="%Y/%m/%d %H:%M:%S",
-    level="INFO",
+# Configure logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# Create formatters
+formatter = logging.Formatter(
+    "%(asctime)s [%(levelname)s] %(message)s", "%Y/%m/%d %H:%M:%S"
 )
 
-logger = logging.getLogger(__name__)
+# Create handlers
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(formatter)
+
+file_handler = logging.FileHandler("app.log")
+file_handler.setFormatter(formatter)
+
+# Add handlers to the logger
+logger.addHandler(console_handler)
+logger.addHandler(file_handler)

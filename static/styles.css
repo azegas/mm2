@@ -2,6 +2,7 @@
 html, body {
     height: 100%;
     margin: 0; /* Remove default margin */
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
 }
 
 .grid-container {
@@ -41,4 +42,54 @@ html, body {
 .stock-chart {
     width: 100%; /* Adjust the width as needed */
     height: auto; /* Maintain aspect ratio */
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+}
+
+.timestamp {
+    width: 100%;
+    line-height: 1rem;
+    font-size: .75rem;
+    letter-spacing: .025em;
+    font-weight: 400;
+    color: rgb(95,99,104);
+}
+
+.symbol {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.price {
+    line-height: 2.75rem;
+    font-size: 2.25rem;
+    letter-spacing: 0;
+    font-weight: 400;
+    margin-right: 5px;
+
+}
+
+.change {
+    font-size: 1rem;
+    font-weight: 500;
+    width: min-content;
+    margin-right: 5px;
+}
+
+.change-percent {
+    line-height: 1.5rem;
+    font-size: 1rem;
+    letter-spacing: .00625em;
+    font-weight: 500;
+}
+
+.green-text {
+    color: green;
+}
+
+.red-text {
+    color: red;
 }

@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+from datetime import datetime
 from config import SYMBOLS
 from log_config import logger
 
@@ -9,6 +10,7 @@ def fetch_stock_data():
     logger.info("Fetched stock data START")
 
     stock_data = {}
+    fetch_time = datetime.now().strftime("%Y-%m-%d %H:%M")
 
     for symbol in SYMBOLS:
         url = f"https://finance.yahoo.com/quote/{symbol}/"
@@ -39,7 +41,7 @@ def fetch_stock_data():
                 else "N/A"
             ),
             "change_percent": (
-                change_percent_element.get_text(strip=True)
+                change_percent_element.get_text(strip=True).strip("()")
                 if change_percent_element
                 else "N/A"
             ),
@@ -53,6 +55,7 @@ def fetch_stock_data():
                 if one_year_estimate_element
                 else "N/A"
             ),
+            "timestamp": fetch_time,  # Add the timestamp to each stock entry
         }
 
         logger.info(

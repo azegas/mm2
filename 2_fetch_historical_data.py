@@ -9,7 +9,10 @@ from config import (
     INCLUDE_ADJUSTED_CLOSE,
 )
 from log_config import logger
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # getting 429 status code. Adding headers is a fix for it.
 # User-Agent Identification: Servers may restrict access based on the
@@ -27,7 +30,8 @@ def fetch_historical_data():
 
     for symbol in SYMBOLS:
         csv_url = f"{HISTORICAL_URL}{symbol}?period1={PERIOD1}&period2={PERIOD2}&interval={INTERVAL}&events={EVENTS}&includeAdjustedClose={INCLUDE_ADJUSTED_CLOSE}"
-        file_path = f"data/{symbol}_historical.csv"
+        base_dir = os.getenv("BASE_DIR")
+        file_path = os.path.join(base_dir, f"data/{symbol}_historical.csv")
 
         try:
             # Make the request with headers

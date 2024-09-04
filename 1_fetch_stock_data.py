@@ -4,7 +4,10 @@ import json
 from datetime import datetime
 from config import SYMBOLS
 from log_config import logger
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def fetch_stock_data():
     logger.info("Fetched stock data START")
@@ -72,7 +75,12 @@ def fetch_stock_data():
 
 def main():
     stock_data = fetch_stock_data()
-    with open("data/stock_data.json", "w") as file:
+
+    base_dir = os.getenv("BASE_DIR")
+        
+    file_path = os.path.join(base_dir, "data/stock_data.json")
+
+    with open(file_path, "w") as file:
         json.dump(stock_data, file, indent=4)
 
 

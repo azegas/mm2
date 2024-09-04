@@ -4,15 +4,19 @@ import csv
 from datetime import datetime
 from config import SYMBOLS
 from log_config import logger
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+base_dir = os.getenv("BASE_DIR")
 
 def generate_stock_chart_high_prices_with_volume():
     logger.info("Generate stock chart START")
 
     for symbol in SYMBOLS:
         # Define file paths
-        csv_file_path = f"data/{symbol}_historical.csv"
-        image_file_path = f"static/images/{symbol}_high_prices_with_volume.png"
+        csv_file_path = os.path.join(base_dir, f"data/{symbol}_historical.csv")
+        image_file_path = os.path.join(base_dir, f"static/images/{symbol}_high_prices_with_volume.png")
 
         # Initialize lists to hold data
         dates = []
@@ -77,8 +81,8 @@ def generate_stock_chart_high_prices():
 
     for symbol in SYMBOLS:
         # Define file paths
-        csv_file_path = f"data/{symbol}_historical.csv"
-        image_file_path = f"static/images/{symbol}_high_prices.png"
+        csv_file_path = os.path.join(base_dir, f"data/{symbol}_historical.csv")
+        image_file_path = os.path.join(base_dir, f"static/images/{symbol}_high_prices.png")
 
         # Initialize lists to hold data
         dates = []

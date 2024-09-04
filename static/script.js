@@ -23,9 +23,9 @@ function fetchStockData() {
                         </div>
                     `;
 
-                    // Add flash effect to indicate refresh
-                    stockDiv.classList.add("flash");
-                    setTimeout(() => stockDiv.classList.remove("flash"), 500); // Remove class after 500ms
+                    // // Add flash effect to indicate refresh
+                    // stockDiv.classList.add("flash");
+                    // setTimeout(() => stockDiv.classList.remove("flash"), 500); // Remove class after 500ms
                 }
             });
              // Call the function to update the text color after the DOM has been updated

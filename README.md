@@ -24,6 +24,8 @@
 Connect to pi from windows:
 ```pwsh
 ssh arvypi@raspberrypi.local
+# or:
+ssh arvypi@192.168.0.82
 ```
 
 TTransfer files from local directory to raspberry - `tranfer.bat`

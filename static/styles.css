@@ -3,6 +3,8 @@ html, body {
     height: 100%;
     margin: 0; /* Remove default margin */
     font-family: "Google Sans",Roboto,Arial,sans-serif;
+    background-color: black;
+    color: white;
 }
 
 .grid-container {
@@ -21,18 +23,18 @@ html, body {
     padding: 10px;
 }
 
-/* Specific styles for first column */
+/* 
 .column-1 {
-    background-color: #e0f7fa; /* Light cyan for visual distinction */
+    background-color: #e0f7fa;
 }
 
-/* Specific styles for second column */
 .column-2 {
-    background-color: #fce4ec; /* Light pink for visual distinction */
-}
+    background-color: #fce4ec;
+
+} */
 
 .row {
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
@@ -92,4 +94,21 @@ html, body {
 
 .red-text {
     color: red;
+}
+
+/* Flash related stuff */
+
+/* Flash effect */
+.flash {
+    animation: flashEffect 0.5s ease-in-out;
+}
+
+/* Keyframes for the flash effect */
+@keyframes flashEffect {
+    from {
+        background-color: yellow;
+    }
+    to {
+        background-color: white;
+    }
 }

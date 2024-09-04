@@ -38,32 +38,31 @@ def generate_stock_chart_high_prices_with_volume():
                 highs.append(high_price)
                 volumes.append(volume)
 
-        # Create a figure and a set of subplots
-        fig, ax1 = plt.subplots(
-            figsize=(15, 4)
-        )  # Wider and shorter figure size
+        # Create a figure and a set of subplots with a black background
+        fig, ax1 = plt.subplots(figsize=(15, 4), facecolor='black')
+        ax1.set_facecolor('black')  # Set the facecolor of the axis
 
         # Plot high prices on the first y-axis
-        ax1.plot(dates, highs, marker=",", color="g", label="High Prices")
-        ax1.set_title(f"High Prices and Volume for {symbol}", fontsize=12)
-        ax1.set_ylabel("High Price (USD)", fontsize=10, color="0.6")
-        ax1.tick_params(axis="y", labelcolor="0.6")
-        ax1.grid(True, linestyle="--", alpha=0.3)  # Lighter grid lines
+        ax1.plot(dates, highs, marker=",", color="white", label="High Prices")
+        ax1.set_title(f"High Prices and Volume for {symbol}", fontsize=12, color='white')
+        ax1.set_ylabel("High Price (USD)", fontsize=10, color="white")
+        ax1.tick_params(axis="y", labelcolor="white")
+        ax1.grid(True, linestyle="--", alpha=0.5, color='gray')  # Lighter grid lines
 
         # Format the y-axis labels for high prices as USD
         ax1.yaxis.set_major_formatter(StrMethodFormatter("${x:,.2f}"))
 
         # Create a second y-axis to plot the volume data
         ax2 = ax1.twinx()
-        ax2.bar(dates, volumes, alpha=0.3, color="0.1", label="Volume")
-        ax2.set_ylabel("Volume (Millions)", fontsize=10, color="0.6")
-        ax2.tick_params(axis="y", labelcolor="0.6")
+        ax2.bar(dates, volumes, alpha=0.3, color="gray", label="Volume")
+        ax2.set_ylabel("Volume (Millions)", fontsize=10, color="white")
+        ax2.tick_params(axis="y", labelcolor="white")
 
         # Format the y-axis labels for volume to show numbers in millions
         ax2.yaxis.set_major_formatter(StrMethodFormatter("{x:.1f}M"))
 
         # Save the plot as an image file
-        plt.savefig(image_file_path)
+        plt.savefig(image_file_path, bbox_inches='tight')
         plt.close()
 
         logger.info(
@@ -76,7 +75,6 @@ def generate_stock_chart_high_prices_with_volume():
 
 
 def generate_stock_chart_high_prices():
-
     logger.info("Generate stock chart START")
 
     for symbol in SYMBOLS:
@@ -101,21 +99,19 @@ def generate_stock_chart_high_prices():
                 dates.append(date)
                 highs.append(high_price)
 
-        # Set the figure size (e.g., 10 inches wide and 4 inches high)
-        plt.figure(figsize=(15, 4))  # Wider and shorter figure size
-        plt.plot(
-            dates,
-            highs,
-            marker=",",
-            # color="r",
-        )
-        plt.title(f"High Prices for {symbol}", fontsize=12)
-        # plt.xlabel("Date", fontsize=10)
-        # plt.ylabel("High Price", fontsize=10)
-        plt.grid(True, linestyle="--", alpha=0.7)  # Lighter grid lines
+        # Set the figure size (e.g., 15 inches wide and 4 inches high) with a black background
+        plt.figure(figsize=(15, 4), facecolor='black')
+        plt.gca().set_facecolor('black')  # Set the facecolor of the axis
+
+        plt.plot(dates, highs, marker=",", color="white")
+        plt.title(f"High Prices for {symbol}", fontsize=12, color='white')
+        plt.ylabel("High Price (USD)", fontsize=10, color='white')
+        plt.xlabel("Date", fontsize=10, color='white')
+        plt.tick_params(axis="both", labelcolor="white")
+        plt.grid(True, linestyle="--", alpha=0.5, color='gray')  # Lighter grid lines
 
         # Save the plot as an image file
-        plt.savefig(image_file_path)
+        plt.savefig(image_file_path, bbox_inches='tight')
         plt.close()
 
         logger.info(

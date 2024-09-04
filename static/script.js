@@ -22,6 +22,10 @@ function fetchStockData() {
                             <img src="/static/images/${symbol}_high_prices_with_volume.png" alt="${symbol} High Prices Chart" class="stock-chart">
                         </div>
                     `;
+
+                    // Add flash effect to indicate refresh
+                    stockDiv.classList.add("flash");
+                    setTimeout(() => stockDiv.classList.remove("flash"), 500); // Remove class after 500ms
                 }
             });
              // Call the function to update the text color after the DOM has been updated
@@ -52,9 +56,10 @@ function fetchStockData() {
 fetchStockData();
 
 // Set an interval to automatically fetch and update the stock data every 10 seconds
-// setInterval(fetchStockData, 10000); // 10,000 ms = 10 seconds
+setInterval(fetchStockData, 10000); // 10,000 ms = 10 seconds
+// setInterval(fetchStockData, 600000); // 600,000 ms = 10 minutes
 // setInterval(fetchStockData, 1800000); // 1,800,000 ms = 30 minutes
 // setInterval(fetchStockData, 3600000); // 3,600,000 ms = 1 hour
 // setInterval(fetchStockData, 18000000); // 18,000,000 ms = 5 hours
-setInterval(fetchStockData, 43200000); // 43,200,000 ms = 12 hours
+// setInterval(fetchStockData, 43200000); // 43,200,000 ms = 12 hours
 // setInterval(fetchStockData, 86400000); // 86,400,000 ms = 24 hours

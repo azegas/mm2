@@ -47,6 +47,7 @@ def generate_stock_chart_high_prices_with_volume():
         ax1.set_title(f"High Prices and Volume for {symbol}", fontsize=12, color='white')
         ax1.set_ylabel("High Price (USD)", fontsize=10, color="white")
         ax1.tick_params(axis="y", labelcolor="white")
+        ax1.tick_params(axis="x", labelcolor="white")  # Set x-axis tick color to white
         ax1.grid(True, linestyle="--", alpha=0.5, color='gray')  # Lighter grid lines
 
         # Format the y-axis labels for high prices as USD
@@ -61,8 +62,12 @@ def generate_stock_chart_high_prices_with_volume():
         # Format the y-axis labels for volume to show numbers in millions
         ax2.yaxis.set_major_formatter(StrMethodFormatter("{x:.1f}M"))
 
-        # Save the plot as an image file
-        plt.savefig(image_file_path, bbox_inches='tight')
+        # Set the background color of the plot area to black
+        ax1.set_facecolor('black')
+        ax2.set_facecolor('black')
+
+        # Save the plot as an image file with a transparent background
+        plt.savefig(image_file_path, bbox_inches='tight', facecolor='black', edgecolor='none')
         plt.close()
 
         logger.info(

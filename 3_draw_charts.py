@@ -74,55 +74,5 @@ def generate_stock_chart_high_prices_with_volume():
     logger.info("Generate stock chart END")
 
 
-def generate_stock_chart_high_prices():
-    logger.info("Generate stock chart START")
-
-    for symbol in SYMBOLS:
-        # Define file paths
-        csv_file_path = os.path.join(base_dir, f"data/{symbol}_historical.csv")
-        image_file_path = os.path.join(base_dir, f"static/images/{symbol}_high_prices.png")
-
-        # Initialize lists to hold data
-        dates = []
-        highs = []
-
-        # Read the CSV file
-        with open(csv_file_path, newline="") as csvfile:
-            csvreader = csv.reader(csvfile)
-            # Skip header row
-            next(csvreader)
-            for row in csvreader:
-                date_str = row[0]
-                high_price = float(row[2])
-                # Convert date string to datetime object
-                date = datetime.strptime(date_str, "%Y-%m-%d")
-                dates.append(date)
-                highs.append(high_price)
-
-        # Set the figure size (e.g., 15 inches wide and 4 inches high) with a black background
-        plt.figure(figsize=(15, 4), facecolor='black')
-        plt.gca().set_facecolor('black')  # Set the facecolor of the axis
-
-        plt.plot(dates, highs, marker=",", color="white")
-        plt.title(f"High Prices for {symbol}", fontsize=12, color='white')
-        plt.ylabel("High Price (USD)", fontsize=10, color='white')
-        plt.xlabel("Date", fontsize=10, color='white')
-        plt.tick_params(axis="both", labelcolor="white")
-        plt.grid(True, linestyle="--", alpha=0.5, color='gray')  # Lighter grid lines
-
-        # Save the plot as an image file
-        plt.savefig(image_file_path, bbox_inches='tight')
-        plt.close()
-
-        logger.info(
-            "%s - generated and saved an image",
-            symbol,
-        )
-
-    logger.info("Generated stock charts for %s", SYMBOLS)
-    logger.info("Generate stock chart END")
-
-
 if __name__ == "__main__":
-    generate_stock_chart_high_prices()
     generate_stock_chart_high_prices_with_volume()

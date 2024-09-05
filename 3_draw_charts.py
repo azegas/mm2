@@ -13,6 +13,7 @@ base_dir = os.getenv("BASE_DIR")
 def generate_stock_chart_high_prices_with_volume():
     logger.info("Generate stock chart START")
 
+
     for symbol in SYMBOLS:
         # Define file paths
         csv_file_path = os.path.join(base_dir, f"data/{symbol}_historical.csv")
@@ -44,10 +45,10 @@ def generate_stock_chart_high_prices_with_volume():
 
         # Plot high prices on the first y-axis
         ax1.plot(dates, highs, marker=",", color="white", label="High Prices")
-        ax1.set_title(f"High Prices and Volume for {symbol}", fontsize=12, color='white')
-        ax1.set_ylabel("High Price (USD)", fontsize=10, color="white")
-        ax1.tick_params(axis="y", labelcolor="white")
-        ax1.tick_params(axis="x", labelcolor="white")  # Set x-axis tick color to white
+        ax1.set_title(f"High Prices and Volume for {symbol}", fontsize=15, color='white')
+        ax1.set_ylabel("High Price (USD)", fontsize=15, color="white")
+        ax1.tick_params(axis="y", labelcolor="white", labelsize=15)
+        ax1.tick_params(axis="x", labelcolor="white", labelsize=15)
         ax1.grid(True, linestyle="--", alpha=0.5, color='gray')  # Lighter grid lines
 
         # Format the y-axis labels for high prices as USD
@@ -56,8 +57,8 @@ def generate_stock_chart_high_prices_with_volume():
         # Create a second y-axis to plot the volume data
         ax2 = ax1.twinx()
         ax2.bar(dates, volumes, alpha=0.3, color="gray", label="Volume")
-        ax2.set_ylabel("Volume (Millions)", fontsize=10, color="white")
-        ax2.tick_params(axis="y", labelcolor="white")
+        ax2.set_ylabel("Volume (Millions)", fontsize=15, color="white")
+        ax2.tick_params(axis="y", labelcolor="white", labelsize=15)
 
         # Format the y-axis labels for volume to show numbers in millions
         ax2.yaxis.set_major_formatter(StrMethodFormatter("{x:.1f}M"))
@@ -77,7 +78,6 @@ def generate_stock_chart_high_prices_with_volume():
 
     logger.info("Generated stock charts for %s", SYMBOLS)
     logger.info("Generate stock chart END")
-
 
 if __name__ == "__main__":
     generate_stock_chart_high_prices_with_volume()

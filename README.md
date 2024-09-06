@@ -4,18 +4,18 @@
 - [ ] most advanced most declined
 - [ ] top gainers
 - [ ] top losers
-- [ ] volume
+- [x] volume
 - [ ] google trends topics - https://trends.google.com/trending?geo=US
 - [ ] notification when big change happened or smth like that. or simply show todays trends in telegram kaip zinute
 - [x] Running eilutė kaip NASDAQe (labai trukineja ji raspberryje)
 - [ ] fondu duomenys - https://www.swedbank.lt/private/investor/funds/allFunds/list/details
 - [ ] humidity inside
 - [ ] temperature out/in
-- [ ] log file for when was fetched and if successs or not (aisku matai in flask terminal, but anyway)
+- [x] log file for when was fetched and if successs or not (aisku matai in flask terminal, but anyway)
 - [ ] switch one the display kai kas nors priarteja - https://tutorials-raspberrypi.com/connect-and-control-raspberry-pi-motion-detector-pir/, https://www.youtube.com/watch?v=Tw0mG4YtsZk
-- [ ] fix period for charts!!! make it dynamic
-- [ ] covid cases
-- [ ] population
+- [X] fix period for charts!!! make it dynamic
+- [x] covid cases (not so needed and kinda hard to fetch)
+- [x] population (not so needed and kinda hard to fetch)
 - [x] indication, that the page has refreshed
 
 

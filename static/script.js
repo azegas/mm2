@@ -1,37 +1,47 @@
 // Function to fetch and update stock data from the server
 function fetchStockData() {
+    // Fetch stock data from the stock_data.json file
     fetch('/read_stock_data_from_file') // Send a request to the server
-        .then(response => response.json()) // Parse response as JSON
+    .then(response => {
+        console.log(response);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+            return response.json();
+        }) // Parse response as JSON
         .then(data => {
-            // Update the HTML elements with the fetched data
-            Object.entries(data).forEach(([symbol, details]) => {
-                const stockDiv = document.getElementById(symbol);
-                if (stockDiv) {
-                    stockDiv.innerHTML = `
-                        <div class="stock-info">
-                            <span class="symbol">${symbol}</span>
-                            <hr>
-                            <span class="data">
-                                <span class="price-container">
-                                    <span class="price">$${details.price}</span>
-                                    <span class="change">${details.change}</span>
-                                    <span class="change-percent">${details.change_percent}</span>
-                                </span>
-                                <span class="timestamp">As of ${details.timestamp}</span>
-                            </span>
-                            <img src="/static/images/${symbol}_high_prices_with_volume.png" alt="${symbol} High Prices Chart" class="stock-chart">
-                        </div>
-                    `;
+            updateStockData(data);
+            updateTextColors();
+            // Clear any previous error messages
+            document.getElementById('error-message').textContent = '';
+        })
+        .catch(error => {
+            console.error('Error fetching stock data:', error);
+            document.getElementById('error-message').textContent = 'Failed to fetch stock data. Please try again later.';
+        });
+}
 
-                    // // Add flash effect to indicate refresh
-                    // stockDiv.classList.add("flash");
-                    // setTimeout(() => stockDiv.classList.remove("flash"), 500); // Remove class after 500ms
-                }
-            });
-             // Call the function to update the text color after the DOM has been updated
-             updateTextColors();
-            })
-            .catch(error => console.error('Error fetching stock data:', error)); // Error handling
+    function updateStockData(data) {
+        Object.entries(data).forEach(([symbol, details]) => {
+            const stockDiv = document.getElementById(symbol);
+            if (stockDiv) {
+                stockDiv.innerHTML = `
+                    <div class="stock-info">
+                        <span class="symbol">${symbol}</span>
+                        <hr>
+                        <span class="data">
+                            <span class="price-container">
+                                <span class="price">$${details.price}</span>
+                                <span class="change">${details.change}</span>
+                                <span class="change-percent">${details.change_percent}</span>
+                            </span>
+                            <span class="timestamp">As of ${details.timestamp}</span>
+                        </span>
+                        <img src="/static/images/${symbol}_high_prices_with_volume.png" alt="${symbol} High Prices Chart" class="stock-chart">
+                    </div>
+                `;
+            }
+        });
     }
     
     // Function to update text colors based on the content of change and change-percent elements

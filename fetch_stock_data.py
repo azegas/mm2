@@ -70,19 +70,27 @@ def fetch_stock_data():
     logger.debug("Stock data %s", stock_data)
     logger.info("Fetched stock data END")
 
+    # Save the stock data to a file
+    save_stock_data(stock_data)
+
     return stock_data
 
-
-def main():
-    stock_data = fetch_stock_data()
-
+def save_stock_data(stock_data):
     base_dir = os.getenv("BASE_DIR")
-        
     file_path = os.path.join(base_dir, "data/stock_data.json")
 
-    with open(file_path, "w") as file:
-        json.dump(stock_data, file, indent=4)
+    # Ensure the directory exists
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
+    try:
+        with open(file_path, "w") as file:
+            json.dump(stock_data, file, indent=4)
+        logger.info(f"Stock data saved to {file_path}")
+    except IOError as e:
+        logger.error(f"Failed to save stock data: {e}")
+
+def main():
+    fetch_stock_data()
 
 if __name__ == "__main__":
     main()

@@ -8,6 +8,7 @@ html, body {
 }
 
 .grid-container {
+    margin-top: 15px;
     display: grid;
     grid-template-columns: 2fr 1fr; /* First column is twice the width of the second */
     grid-template-rows: repeat(5, 1fr); /* Create 5 equal rows */

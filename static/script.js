@@ -1,3 +1,32 @@
+// Function to create and update the banner
+function updateBanner() {
+    const bannerElement = document.getElementById('update-banner');
+    if (!bannerElement) {
+        const banner = document.createElement('div');
+        banner.id = 'update-banner';
+        banner.style.position = 'fixed';
+        banner.style.top = '0';
+        banner.style.left = '0';
+        banner.style.width = '100%';
+        // banner.style.backgroundColor = '#f0f0f0';
+        banner.style.padding = '10px';
+        banner.style.textAlign = 'center';
+        banner.style.zIndex = '1000';
+        document.body.insertBefore(banner, document.body.firstChild);
+    }
+    
+    let secondsUntilUpdate = 10;
+    const updateBannerText = () => {
+        document.getElementById('update-banner').textContent = `Updating in ${secondsUntilUpdate} seconds`;
+        secondsUntilUpdate--;
+        if (secondsUntilUpdate < 0) {
+            secondsUntilUpdate = 10;
+        }
+    };
+    updateBannerText();
+    setInterval(updateBannerText, 1000);
+}
+
 // Function to fetch and update stock data from the server
 function fetchStockData() {
     // Fetch stock data from the stock_data.json file
@@ -64,12 +93,8 @@ function updateTextColors() {
 
 // Initial data load when the page first loads
 fetchStockData();
+updateBanner();
 
-// Set an interval to automatically fetch and update the stock data every 10 seconds
-setInterval(fetchStockData, 10000); // 10,000 ms = 10 seconds
-// setInterval(fetchStockData, 600000); // 600,000 ms = 10 minutes
-// setInterval(fetchStockData, 1800000); // 1,800,000 ms = 30 minutes
-// setInterval(fetchStockData, 3600000); // 3,600,000 ms = 1 hour
-// setInterval(fetchStockData, 18000000); // 18,000,000 ms = 5 hours
-// setInterval(fetchStockData, 43200000); // 43,200,000 ms = 12 hours
-// setInterval(fetchStockData, 86400000); // 86,400,000 ms = 24 hours
+// 10000 milliseconds is equal to 10 seconds
+// This means fetchStockData() will be called every 10 seconds
+setInterval(fetchStockData, 10000);

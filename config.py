@@ -1,7 +1,12 @@
+from datetime import datetime, timedelta
+
+# Calculate the date range
+end_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=1)
+start_date = end_date - timedelta(days=366)
+
 SYMBOLS = ["TSLA", "TM", "AAPL", "BTC-USD", "MSFT"]
 HISTORICAL_URL = "https://query1.finance.yahoo.com/v7/finance/download/"
-PERIOD1 = "1693658112"
-PERIOD2 = "1725280512"
-INTERVAL = "1d"
-EVENTS = "history"
-INCLUDE_ADJUSTED_CLOSE = "true"
+START_DATE_UNIX = int(start_date.timestamp())
+START_DATE_HUMAN = start_date.strftime('%Y-%m-%d')
+END_DATE_UNIX = int(end_date.timestamp())
+END_DATE_HUMAN = end_date.strftime('%Y-%m-%d')

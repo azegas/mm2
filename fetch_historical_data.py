@@ -2,15 +2,15 @@ import requests
 from config import (
     SYMBOLS,
     HISTORICAL_URL,
-    PERIOD1,
-    PERIOD2,
-    INTERVAL,
-    EVENTS,
-    INCLUDE_ADJUSTED_CLOSE,
+    START_DATE_UNIX,
+    END_DATE_UNIX,
+    START_DATE_HUMAN,
+    END_DATE_HUMAN,
 )
 from log_config import logger
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -26,10 +26,16 @@ headers = {
 
 
 def fetch_historical_data():
-    logger.info("Fetch historical START")
+    
+    logger.info(
+        "Fetch historical for %s from %s to %s START",
+        SYMBOLS,
+        START_DATE_HUMAN,
+        END_DATE_HUMAN,
+    )
 
     for symbol in SYMBOLS:
-        csv_url = f"{HISTORICAL_URL}{symbol}?period1={PERIOD1}&period2={PERIOD2}&interval={INTERVAL}&events={EVENTS}&includeAdjustedClose={INCLUDE_ADJUSTED_CLOSE}"
+        csv_url = f"{HISTORICAL_URL}{symbol}?period1={str(int(START_DATE_UNIX))}&period2={str(int(END_DATE_UNIX))}&interval=1d&events=history&includeAdjustedClose=true"
         base_dir = os.getenv("BASE_DIR")
         file_path = os.path.join(base_dir, f"data/{symbol}_historical.csv")
 

@@ -21,46 +21,46 @@ function fetchStockData() {
         });
 }
 
-    function updateStockData(data) {
-        Object.entries(data).forEach(([symbol, details]) => {
-            const stockDiv = document.getElementById(symbol);
-            if (stockDiv) {
-                stockDiv.innerHTML = `
-                    <div class="stock-info">
-                        <span class="symbol">${symbol}</span>
-                        <hr>
-                        <span class="data">
-                            <span class="price-container">
-                                <span class="price">$${details.price}</span>
-                                <span class="change">${details.change}</span>
-                                <span class="change-percent">${details.change_percent}</span>
-                            </span>
-                            <span class="timestamp">As of ${details.timestamp}</span>
+function updateStockData(data) {
+    Object.entries(data).forEach(([symbol, details]) => {
+        const stockDiv = document.getElementById(symbol);
+        if (stockDiv) {
+            stockDiv.innerHTML = `
+                <div class="stock-info">
+                    <span class="symbol">${symbol}</span>
+                    <hr>
+                    <span class="data">
+                        <span class="price-container">
+                            <span class="price">$${details.price}</span>
+                            <span class="change">${details.change}</span>
+                            <span class="change-percent">${details.change_percent}</span>
                         </span>
-                        <img src="/static/images/${symbol}_high_prices_with_volume.png" alt="${symbol} High Prices Chart" class="stock-chart">
-                    </div>
-                `;
-            }
-        });
-    }
-    
-    // Function to update text colors based on the content of change and change-percent elements
-    function updateTextColors() {
-        // Select all elements with the class 'change' or 'change-percent'
-        const elements = document.querySelectorAll('.change, .change-percent');
-    
-        elements.forEach(function(element) {
-            // Get the text content of the element
-            const text = element.textContent.trim();
-    
-            // Check if the text contains a minus sign (-)
-            if (text.includes('-')) {
-                element.classList.add("red-text");  // Assign red text color
-            } else if (text.includes('+')) {
-                element.classList.add("green-text");  // Assign green text color
-            }
-        });
-    }
+                        <span class="timestamp">As of ${details.timestamp}</span>
+                    </span>
+                    <img src="/static/images/${symbol}_high_prices_with_volume.png" alt="${symbol} High Prices Chart" class="stock-chart">
+                </div>
+            `;
+        }
+    });
+}
+
+// Function to update text colors based on the content of change and change-percent elements
+function updateTextColors() {
+    // Select all elements with the class 'change' or 'change-percent'
+    const elements = document.querySelectorAll('.change, .change-percent');
+
+    elements.forEach(function(element) {
+        // Get the text content of the element
+        const text = element.textContent.trim();
+
+        // Check if the text contains a minus sign (-)
+        if (text.includes('-')) {
+            element.classList.add("red-text");  // Assign red text color
+        } else if (text.includes('+')) {
+            element.classList.add("green-text");  // Assign green text color
+        }
+    });
+}
 
 // Initial data load when the page first loads
 fetchStockData();

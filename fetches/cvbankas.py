@@ -2,8 +2,12 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import json
+import os
 from log_config import logger
 from config import CVBANKAS_KEYWORDS
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def fetch_cvbankas_jobs():
     keywords = CVBANKAS_KEYWORDS
@@ -26,56 +30,78 @@ def fetch_cvbankas_jobs():
             logger.warning(f"Could not find job list on the page for {keyword}")
             continue
 
-        # Extract total ads count
-        filter_stats = soup.find('span', class_='filter_statistics')
-        if filter_stats:
-            match = re.search(r'\(view all ([\d,]+) ads\)', filter_stats.text)
-            if match:
-                total_ads = int(match.group(1).replace(',', ''))
-
-        for article in job_list.find_all('article', class_='list_article'):
-            job = {}
-            
-            # Extract job title
-            title_elem = article.find('h3', class_='list_h3')
-            job['title'] = title_elem.text.strip() if title_elem else "N/A"
-            
-            # Extract company name
-            company_elem = article.find('span', class_='dib mt5 mr5')
-            job['company'] = company_elem.text.strip() if company_elem else "N/A"
-            
-            # Extract salary
-            salary_elem = article.find('span', class_='salary_amount')
-            if salary_elem:
-                job['salary'] = salary_elem.text.strip()
-                
-                # Extract salary period and type (Gross/Net)
-                salary_period = article.find('span', class_='salary_period')
-                salary_type = article.find('span', class_='salary_calculation')
-                if salary_period and salary_type:
-                    job['salary'] += f" {salary_period.text.strip()} ({salary_type.text.strip()})"
-            else:
-                job['salary'] = "N/A"
-            
-            job['keyword'] = keyword
-            jobs.append(job)
+        total_ads = extract_total_ads(soup)
+        jobs.extend(extract_jobs(job_list, keyword))
 
     logger.info(f"Successfully fetched {len(jobs)} job listings from CVBankas")
     logger.info(f"Total ads on CVBankas: {total_ads}")
+
+    # Save the fetched jobs
+    save_cvbankas_jobs(jobs, total_ads)
+
     return jobs, total_ads
 
-if __name__ == "__main__":
-    jobs, total_ads = fetch_cvbankas_jobs(CVBANKAS_KEYWORDS)
+def extract_total_ads(soup):
+    filter_stats = soup.find('span', class_='filter_statistics')
+    if filter_stats:
+        match = re.search(r'\(view all ([\d,]+) ads\)', filter_stats.text)
+        if match:
+            return int(match.group(1).replace(',', ''))
+    return 0
+
+def extract_jobs(job_list, keyword):
+    jobs = []
+    for article in job_list.find_all('article', class_='list_article'):
+        job = {
+            'title': extract_text(article, 'h3', 'list_h3'),
+            'company': extract_text(article, 'span', 'dib mt5 mr5'),
+            'salary': extract_salary(article),
+            'keyword': keyword
+        }
+        jobs.append(job)
+    return jobs
+
+def extract_text(article, tag, class_name):
+    element = article.find(tag, class_=class_name)
+    return element.text.strip() if element else "N/A"
+
+def extract_salary(article):
+    salary_elem = article.find('span', class_='salary_amount')
+    if not salary_elem:
+        return "N/A"
     
-    # Create a dictionary with jobs and total_ads
+    salary = salary_elem.text.strip()
+    salary_period = extract_text(article, 'span', 'salary_period')
+    salary_type = extract_text(article, 'span', 'salary_calculation')
+    
+    if salary_period and salary_type:
+        return f"{salary} {salary_period} ({salary_type})"
+    return salary
+
+def save_cvbankas_jobs(jobs, total_ads):
     data_to_save = {
         "total_ads": total_ads,
         "jobs": jobs,
     }
+
+    base_dir = os.getenv("BASE_DIR")
+    file_path = os.path.join(base_dir, "data/cvbankas_ads.json")
+
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
     
-    # Save the data to a JSON file
-    with open('data/cvbankas_ads.json', 'w', encoding='utf-8') as f:
-        json.dump(data_to_save, f, ensure_ascii=False, indent=4)
-    
-    logger.info(f"Data saved to data/cvbankas_ads.json")
+    try:
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(data_to_save, f, ensure_ascii=False, indent=4)
+        logger.info(f"Data successfully saved to {file_path}")
+    except IOError as e:
+        logger.error(f"Failed to save data to {file_path}: {e}")
+
+def main():
+    jobs, total_ads = fetch_cvbankas_jobs()
+    print(jobs)
+    print(total_ads)
+    breakpoint()
     logger.info(f"Successfully fetched job listings for keywords: {', '.join(CVBANKAS_KEYWORDS)}")
+
+if __name__ == "__main__":
+    main()

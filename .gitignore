@@ -1,6 +1,7 @@
 **/venv*/
 stock_data.json
 *.csv
+*.json
 *.png
 
 # Byte-compiled / optimized / DLL files

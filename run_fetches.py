@@ -4,10 +4,10 @@ from fetches.invest_draw_charts import generate_stock_chart_high_prices_with_vol
 from fetches.cvbankas import fetch_cvbankas_jobs
 
 def run_all_fetches():
+    fetch_cvbankas_jobs()
     fetch_stock_data()
     fetch_historical_data()
     generate_stock_chart_high_prices_with_volume()
-    fetch_cvbankas_jobs()
 
 
 if __name__ == "__main__":

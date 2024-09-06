@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, render_template
 import os
 import json
 import os
@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return send_from_directory("static", "index.html")
+    return render_template("index.html")
 
 
 @app.route("/read_stock_data_from_file")
@@ -27,6 +27,4 @@ def stock_data():
 
 
 if __name__ == "__main__":
-    app.run(
-        debug=True
-    )
+    app.run(debug=True)

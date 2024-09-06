@@ -1,17 +1,26 @@
-import { fetchStockData, fetchSensorData } from './api.js';
 import { updateStockData, updateTextColors, updateSensorData } from './domUpdates.js';
 
-function updateDisplay() {
-    fetchStockData()
-        .then(data => {
-            updateStockData(data);
-            updateTextColors();
-        });
-    fetchSensorData()
-        .then(data => {
-            updateSensorData(data);
-        });
-}
+const socket = io();
 
-updateDisplay();
-setInterval(updateDisplay, 10000);
+socket.on('connect', () => {
+    console.log('Connected to server');
+});
+
+socket.on('stock_display_refresh', (data) => {
+    updateStockData(data);
+    updateTextColors();
+});
+
+socket.on('sensor_display_refresh', (data) => {
+    updateSensorData(data);
+});
+
+// Request sensor updates every second
+setInterval(() => {
+    socket.emit('request_sensor_update');
+}, 1000);
+
+// Request stock updates every minute
+setInterval(() => {
+    socket.emit('request_stock_update');
+}, 60000);

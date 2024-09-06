@@ -1,41 +1,48 @@
 from flask import Flask, jsonify, render_template
 import os
 import json
-import os
 from dotenv import load_dotenv
+from flask_socketio import SocketIO, emit
+from log_config import logger
 
 load_dotenv()
 base_dir = os.getenv("BASE_DIR")
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
-
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-
-@app.route("/read_stock_data_from_file")
-def stock_data():
+def read_stock_data():
     file_path = os.path.join(base_dir, "data/stock_data.json")
     if os.path.exists(file_path):
         with open(file_path, "r") as file:
-            data = json.load(file)
-        return jsonify(data)
-    else:
-        return jsonify({"error": "Data not found"}), 404
-    
+            return json.load(file)
+    return {"error": "Data not found"}
 
-@app.route("/read_sensor_data_from_file")
-def sensor_data():
+def read_sensor_data():
     file_path = os.path.join(base_dir, "data/sensor_data.json")
     if os.path.exists(file_path):
         with open(file_path, "r") as file:
             data = json.load(file)
-        return jsonify(data)
-    else:
-        return jsonify({"error": "Data not found"}), 404
+            return data
+    logger.warning("Sensor data file not found")
+    return {"error": "Data not found"}
 
+@socketio.on('connect')
+def handle_connect():
+    emit('stock_display_refresh', read_stock_data())
+    emit('sensor_display_refresh', read_sensor_data())
+
+@socketio.on('request_stock_update')
+def handle_stock_update_request():
+    emit('stock_display_refresh', read_stock_data())
+
+@socketio.on('request_sensor_update')
+def handle_sensor_update_request():
+    emit('sensor_display_refresh', read_sensor_data())
+
+@app.route("/")
+def home():
+    return render_template("index.html", initial_stock_data=read_stock_data(), initial_sensor_data=read_sensor_data())
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    socketio.run(app, debug=True, host='0.0.0.0', port=5000)

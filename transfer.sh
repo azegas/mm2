@@ -3,7 +3,7 @@
 # Define variables
 REMOTE_USER="arvypi"
 REMOTE_HOST="192.168.0.82"
-REMOTE_PATH="/home/arvypi/GIT/invest"
+REMOTE_PATH="/home/arvypi/GIT/mm2"
 
 # Transfer files using rsync
 echo "Transferring files..."

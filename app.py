@@ -24,6 +24,17 @@ def stock_data():
         return jsonify(data)
     else:
         return jsonify({"error": "Data not found"}), 404
+    
+
+@app.route("/read_sensor_data_from_file")
+def sensor_data():
+    file_path = os.path.join(base_dir, "data/sensor_data.json")
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+        return jsonify(data)
+    else:
+        return jsonify({"error": "Data not found"}), 404
 
 
 if __name__ == "__main__":

@@ -21,6 +21,11 @@ export function updateStockData(data) {
     });
 }
 
+export function updateSensorData(data) {
+    document.getElementById('temperature').textContent = data.temperature;
+    document.getElementById('humidity').textContent = data.humidity;
+}
+          
 export function updateTextColors(data) {
     document.querySelectorAll('.change, .change-percent').forEach(element => {
         const text = element.textContent.trim();

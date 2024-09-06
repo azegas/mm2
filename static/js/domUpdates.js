@@ -24,6 +24,7 @@ export function updateStockData(data) {
 export function updateSensorData(data) {
     document.getElementById('temperature').textContent = data.temperature;
     document.getElementById('humidity').textContent = data.humidity;
+    document.getElementById('last_update').textContent = data.last_update;
 }
           
 export function updateTextColors(data) {

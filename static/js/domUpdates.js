@@ -1,24 +1,31 @@
 export function updateStockData(data) {
-    Object.entries(data).forEach(([symbol, details]) => {
-        const stockDiv = document.getElementById(symbol);
-        if (stockDiv) {
-            stockDiv.innerHTML = `
+    const stockDiv = document.getElementById('stock_data');
+    if (stockDiv) {
+        stockDiv.innerHTML = ''; // Clear previous content
+        
+        Object.entries(data).forEach(([symbol, details]) => {
+            const stockCard = document.createElement('div');
+            stockCard.className = 'stock-card';
+            stockCard.innerHTML = `
                 <div class="stock-info">
-                    <span class="symbol">${symbol}</span>
-                    <hr>
-                    <span class="data">
-                        <span class="price-container">
-                            <span class="price">$${details.price}</span>
-                            <span class="change">${details.change}</span>
-                            <span class="change-percent">${details.change_percent}</span>
+                    <div class="row">
+                        <span class="symbol">${symbol}</span>
+                        <span class="data">
+                            <span class="price-container">
+                                <span class="price">$${details.price}</span>
+                                <span class="change">${details.change}</span>
+                                <span class="change-percent">${details.change_percent}</span>
+                            </span>
+                            <span class="volume">Volume - ${details.volume}</span>
+                            <span class="timestamp">As of ${details.timestamp}</span>
+                            <img src="/static/images/${symbol}_high_prices_with_volume.png" alt="${symbol} High Prices Chart" class="stock-chart">
                         </span>
-                        <span class="timestamp">As of ${details.timestamp}</span>
-                    </span>
-                    <img src="/static/images/${symbol}_high_prices_with_volume.png" alt="${symbol} High Prices Chart" class="stock-chart">
+                    </div>
                 </div>
             `;
-        }
-    });
+            stockDiv.appendChild(stockCard);
+        });
+    }
 }
 
 export function updateSensorData(data) {
@@ -37,3 +44,28 @@ export function updateTextColors(data) {
         }
     });
 }
+
+export function updateCvbankasData(data) {
+    const jobsContainer = document.getElementById('cvbankas_jobs');
+    jobsContainer.innerHTML = ''; // Clear previous content
+    
+    const jobCards = document.createElement('div');
+    jobCards.className = 'job-cards';
+    
+    data.jobs.forEach(job => {
+        const card = document.createElement('div');
+        card.className = 'job-card';
+        card.innerHTML = `
+            <img src="${job.image_link}" alt="${job.company} logo" class="job-image">
+            <div class="job-details">
+                <p class="job-title">${job.title}</p>
+                <p class="job-company"><strong>Company:</strong> ${job.company}</p>
+                <p class="job-salary"><strong>Salary:</strong> ${job.salary}</p>
+            </div>
+        `;
+        jobCards.appendChild(card);
+    });
+    
+    jobsContainer.appendChild(jobCards);
+}
+

@@ -1,4 +1,4 @@
-import { updateStockData, updateTextColors, updateSensorData } from './domUpdates.js';
+import { updateStockData, updateTextColors, updateSensorData, updateCvbankasData } from './domUpdates.js';
 
 const socket = io();
 
@@ -15,12 +15,18 @@ socket.on('sensor_display_refresh', (data) => {
     updateSensorData(data);
 });
 
-// Request sensor updates every second
+socket.on('cvbankas_display_refresh', (data) => {
+    updateCvbankasData(data);
+});
+
+setInterval(() => {
+    socket.emit('request_cvbankas_update');
+}, 60000); // 1 minute
+
 setInterval(() => {
     socket.emit('request_sensor_update');
-}, 1000);
+}, 1000); // 1 second
 
-// Request stock updates every minute
 setInterval(() => {
     socket.emit('request_stock_update');
-}, 60000);
+}, 60000); // 1 minute

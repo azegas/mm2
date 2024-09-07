@@ -27,10 +27,18 @@ def read_sensor_data():
     logger.warning("Sensor data file not found")
     return {"error": "Data not found"}
 
+def read_cvbankas_data():
+    file_path = os.path.join(base_dir, "data/cvbankas_ads.json")
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            return json.load(file)
+    return {"error": "Data not found"}
+    
 @socketio.on('connect')
 def handle_connect():
     emit('stock_display_refresh', read_stock_data())
     emit('sensor_display_refresh', read_sensor_data())
+    emit('cvbankas_display_refresh', read_cvbankas_data())
 
 @socketio.on('request_stock_update')
 def handle_stock_update_request():
@@ -39,6 +47,10 @@ def handle_stock_update_request():
 @socketio.on('request_sensor_update')
 def handle_sensor_update_request():
     emit('sensor_display_refresh', read_sensor_data())
+
+@socketio.on('request_cvbankas_update')
+def handle_cvbankas_update_request():
+    emit('cvbankas_display_refresh', read_cvbankas_data())
 
 @app.route("/")
 def home():

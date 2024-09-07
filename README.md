@@ -36,3 +36,16 @@ TTransfer files from local directory to raspberry - `tranfer.bat`
 # crontab cron.txt
 # crontab -e
 # crontab -l
+
+
+## How it works with socket.io
+
+Backend:
+- continuous process on the backend to fetch the data (cronjob)
+- cronjob fetches every minute or so during 05:00 - 07:00 and 17:00 - 22:00
+- when the cron job finished, usually it stores the results in a .json file
+
+Frontend:
+- on the frontend, we have a flask app
+- flask app in itself has some socketio functions that READ data from the files
+- We tell, with the help of javascript, how often to read the data of those files and then update the page with it

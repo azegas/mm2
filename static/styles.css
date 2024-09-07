@@ -96,3 +96,34 @@ html, body {
 .red-text {
     color: red;
 }
+
+.job-cards {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.job-card {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: calc(33.33% - 20px); /* Adjust for 3 cards per row, considering margins */
+}
+
+.job-title {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.job-company, .job-salary {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.job-image {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: 50px;
+    object-fit: contain;
+}

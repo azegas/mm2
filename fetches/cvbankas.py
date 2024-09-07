@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import re
 import json
 import os
 from log_config import logger
@@ -12,7 +11,6 @@ load_dotenv()
 def fetch_cvbankas_jobs():
     keywords = CVBANKAS_KEYWORDS
     jobs = []
-    total_ads = 0
     for keyword in keywords:
         url = f"https://en.cvbankas.lt/?keyw={keyword}"
         
@@ -30,24 +28,17 @@ def fetch_cvbankas_jobs():
             logger.warning(f"Could not find job list on the page for {keyword}")
             continue
 
-        total_ads = extract_total_ads(soup)
         jobs.extend(extract_jobs(job_list, keyword))
 
-    logger.info(f"Successfully fetched {len(jobs)} job listings from CVBankas")
-    logger.info(f"Total ads on CVBankas: {total_ads}")
+    # Filter jobs with salary starting from 3500
+    filtered_jobs = [job for job in jobs if is_salary_above_3500(job['salary'])]
 
-    # Save the fetched jobs
-    save_cvbankas_jobs(jobs, total_ads)
+    logger.info(f"Successfully fetched {len(filtered_jobs)} job listings from CVBankas with salary starting from 3500")
 
-    return jobs, total_ads
+    # Save the filtered jobs
+    save_cvbankas_jobs(filtered_jobs)
 
-def extract_total_ads(soup):
-    filter_stats = soup.find('span', class_='filter_statistics')
-    if filter_stats:
-        match = re.search(r'\(view all ([\d,]+) ads\)', filter_stats.text)
-        if match:
-            return int(match.group(1).replace(',', ''))
-    return 0
+    return filtered_jobs
 
 def extract_jobs(job_list, keyword):
     jobs = []
@@ -56,7 +47,8 @@ def extract_jobs(job_list, keyword):
             'title': extract_text(article, 'h3', 'list_h3'),
             'company': extract_text(article, 'span', 'dib mt5 mr5'),
             'salary': extract_salary(article),
-            'keyword': keyword
+            'keyword': keyword,
+            'image_link': extract_image_link(article)
         }
         jobs.append(job)
     return jobs
@@ -78,10 +70,23 @@ def extract_salary(article):
         return f"{salary} {salary_period} ({salary_type})"
     return salary
 
-def save_cvbankas_jobs(jobs, total_ads):
+def extract_image_link(article):
+    img_elem = article.find('img')
+    return img_elem['src'] if img_elem else "N/A"
+
+def is_salary_above_3500(salary):
+    if salary == "N/A":
+        return False
+    try:
+        # Extract the first number from the salary string
+        salary_value = float(''.join(filter(str.isdigit, salary.split('-')[0])))
+        return salary_value >= 3500
+    except ValueError:
+        return False
+
+def save_cvbankas_jobs(jobs):
     data_to_save = {
-        "total_ads": total_ads,
-        "jobs": jobs,
+        "jobs": jobs
     }
 
     base_dir = os.getenv("BASE_DIR")
@@ -97,10 +102,7 @@ def save_cvbankas_jobs(jobs, total_ads):
         logger.error(f"Failed to save data to {file_path}: {e}")
 
 def main():
-    jobs, total_ads = fetch_cvbankas_jobs()
-    print(jobs)
-    print(total_ads)
-    breakpoint()
+    jobs = fetch_cvbankas_jobs()
     logger.info(f"Successfully fetched job listings for keywords: {', '.join(CVBANKAS_KEYWORDS)}")
 
 if __name__ == "__main__":

@@ -2,9 +2,9 @@ import { updateStockData, updateTextColors, updateSensorData, updateCvbankasData
 
 const socket = io();
 
-let intervalStock = 60000;
+let intervalStock = 10000;
 let intervalSensor = 1000;
-let intervalCvbankas = 60000;
+let intervalCvbankas = 10000;
 
 socket.on('connect', () => {
     console.log('Connected to server');

@@ -27,6 +27,7 @@ headers = {
 
 def fetch_historical_data():
     
+    logger.info("##########################################################")
     logger.info(
         "Fetch historical for %s from %s to %s START",
         SYMBOLS,
@@ -38,6 +39,8 @@ def fetch_historical_data():
         csv_url = f"{HISTORICAL_URL}{symbol}?period1={str(int(START_DATE_UNIX))}&period2={str(int(END_DATE_UNIX))}&interval=1d&events=history&includeAdjustedClose=true"
         base_dir = os.getenv("BASE_DIR")
         file_path = os.path.join(base_dir, f"data/{symbol}_historical.csv")
+
+        breakpoint()
 
         try:
             # Make the request with headers
@@ -52,16 +55,17 @@ def fetch_historical_data():
                 )
             else:
                 logger.error(
-                    "%s - failed to download file for. Status code: %s",
+                    "%s - failed to download file. Status code: %s",
                     symbol,
                     response.status_code,
                 )
+                return  # Exit the function if any symbol fails
 
         except requests.exceptions.RequestException as e:
             logger.error(f"An error occurred: {e}")
+            return  # Exit the function if any exception occurs
 
-    logger.info("Fetched historical for %s", SYMBOLS)
-    logger.info("Fetched historical END")
+    logger.info("Successfully fetched historical data for all symbols")
 
 
 def main():

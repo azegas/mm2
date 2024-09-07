@@ -10,7 +10,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def fetch_stock_data():
-    logger.info("Fetched stock data START")
+    logger.info("##########################################################")
+    logger.info("Fetch stock data START")
 
     stock_data = {}
     fetch_time = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -68,11 +69,8 @@ def fetch_stock_data():
 
     logger.info("Fetched stock data for %s", SYMBOLS)
     logger.debug("Stock data %s", stock_data)
-    logger.info("Fetched stock data END")
-
-    # Save the stock data to a file
     save_stock_data(stock_data)
-
+    logger.info("Fetched stock data END")
     return stock_data
 
 def save_stock_data(stock_data):

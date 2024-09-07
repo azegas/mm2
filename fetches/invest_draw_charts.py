@@ -11,6 +11,7 @@ load_dotenv()
 base_dir = os.getenv("BASE_DIR")
 
 def generate_stock_chart_high_prices_with_volume():
+    logger.info("##########################################################")
     logger.info("Generate stock chart START")
 
 

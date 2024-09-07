@@ -9,6 +9,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def fetch_cvbankas_jobs():
+    logger.info("##########################################################")
+    logger.info("Fetch CVBankas jobs START")
+
     keywords = CVBANKAS_KEYWORDS
     jobs = []
     for keyword in keywords:
@@ -33,10 +36,11 @@ def fetch_cvbankas_jobs():
     # Filter jobs with salary starting from 3500
     filtered_jobs = [job for job in jobs if is_salary_above_3500(job['salary'])]
 
-    logger.info(f"Successfully fetched {len(filtered_jobs)} job listings from CVBankas with salary starting from 3500")
-
-    # Save the filtered jobs
     save_cvbankas_jobs(filtered_jobs)
+
+    logger.info(f"Successfully fetched job listings for keywords: {CVBANKAS_KEYWORDS}")
+    logger.info("Fetch CVBankas jobs END")
+    # Save the filtered jobs
 
     return filtered_jobs
 
@@ -103,7 +107,6 @@ def save_cvbankas_jobs(jobs):
 
 def main():
     jobs = fetch_cvbankas_jobs()
-    logger.info(f"Successfully fetched job listings for keywords: {', '.join(CVBANKAS_KEYWORDS)}")
 
 if __name__ == "__main__":
     main()

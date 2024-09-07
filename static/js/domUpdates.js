@@ -1,3 +1,17 @@
+export function updateUpdateIntervals(intervalStock, intervalSensor, intervalCvbankas) {
+    const updateIntervals = document.getElementById('update-intervals');
+    if (updateIntervals) {
+        const stockInterval = intervalStock / 1000 >= 60 ? `${intervalStock / 60000} minutes` : `${intervalStock / 1000} seconds`;
+        const sensorInterval = intervalSensor / 1000 >= 60 ? `${intervalSensor / 60000} minutes` : `${intervalSensor / 1000} seconds`;
+        const cvbankasInterval = intervalCvbankas / 1000 >= 60 ? `${intervalCvbankas / 60000} minutes` : `${intervalCvbankas / 1000} seconds`;
+        updateIntervals.innerHTML = `
+            <span>Sensor - ${sensorInterval}&nbsp;|&nbsp;</span>
+            <span>Stock - ${stockInterval}&nbsp;|&nbsp;</span>
+            <span>Cvbankas - ${cvbankasInterval}</span>
+        `;
+    }
+}
+
 export function updateStockData(data) {
     const stockDiv = document.getElementById('stock_data');
     if (stockDiv) {

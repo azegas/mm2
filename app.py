@@ -36,9 +36,9 @@ def read_cvbankas_data():
     
 @socketio.on('connect')
 def handle_connect():
-    emit('stock_display_refresh', read_stock_data())
+    # emit('stock_display_refresh', read_stock_data())
+    # emit('cvbankas_display_refresh', read_cvbankas_data())
     emit('sensor_display_refresh', read_sensor_data())
-    emit('cvbankas_display_refresh', read_cvbankas_data())
 
 @socketio.on('request_stock_update')
 def handle_stock_update_request():

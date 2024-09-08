@@ -9,12 +9,29 @@
     <title>Two Column Layout</title>
 </head>
 <body>
-    <!-- <div id="cvbankas_jobs" class="row"></div> -->
+    <div class="grid-container">
+        <!-- First column with twice the width -->
+        <div class="column column-1">
+            <div id="stock_data"></div>
+            <div id="cvbankas_jobs" class="row"></div>
+        </div>
 
-    <div class="row">
-        <div>Temperature - <span id="temperature"></span></div>
-        <div>Humidity - <span id="humidity"></span></div>
-        <small>Last Update - <span id="timestamp"></span></small>
+        <!-- Second column -->
+        <div class="column column-2">
+            <div class="row" id="current-time">
+            </div>
+            <div class="row">
+                <div>Temperature - <span id="temperature"></span></div>
+                <div>Humidity - <span id="humidity"></span></div>
+                <small class="timestamp">Last Update - <span id="timestamp"></span></small>
+            </div>
+            <div class="row">Row 2, Column 2</div>
+            <div class="row">Row 3, Column 2</div>
+            <div class="row">Row 4, Column 2</div>
+            <div class="row">Row 5, Column 2</div>
+        </div>
+
+        <!-- Information about raspberry statuses like CPU and memory and temperature -->
     </div>
 
     <script type="module" src="/static/js/main.js"></script>

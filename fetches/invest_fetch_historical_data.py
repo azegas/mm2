@@ -1,5 +1,5 @@
 import requests
-from utilities.config import (
+from config import (
     SYMBOLS,
     HISTORICAL_URL,
     START_DATE_UNIX,
@@ -7,7 +7,7 @@ from utilities.config import (
     START_DATE_HUMAN,
     END_DATE_HUMAN,
 )
-from utilities.log_config import logger
+from log_config import logger
 import os
 from dotenv import load_dotenv
 from datetime import datetime

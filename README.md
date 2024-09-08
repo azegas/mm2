@@ -14,8 +14,10 @@ Magic mirror 2
 - [ ] raspberry pi uptime 
 - [x] Running eilutė kaip NASDAQe (labai trukineja ji raspberryje)
 - [ ] fondu duomenys - https://www.swedbank.lt/private/investor/funds/allFunds/list/details
-- [ ] humidity inside
-- [ ] temperature out/in
+- [x] humidity inside
+- [x] temperature in
+- [x] temperature out
+- [ ] humidity UI sitaip SEK TIK 24h - https://i0.wp.com/blog.balena.io/wp-content/uploads/2021/07/sensev2.png?fit=1200%2C628&ssl=1
 - [x] log file for when was fetched and if successs or not (aisku matai in flask terminal, but anyway)
 - [ ] switch one the display kai kas nors priarteja - https://tutorials-raspberrypi.com/connect-and-control-raspberry-pi-motion-detector-pir/, https://www.youtube.com/watch?v=Tw0mG4YtsZk
 - [X] fix period for charts!!! make it dynamic

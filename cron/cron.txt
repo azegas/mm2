@@ -13,13 +13,10 @@
 # +------------ Minute (0 - 59)
 
 # Run every minute from 5:00 AM to 6:59 AM
-# * 5-6 * * * /usr/bin/python3 /home/arvypi/Desktop/invest/run_fetches.py
+* 5-6 * * * /home/arvypi/venvs/venv-mm2/bin/python /home/arvypi/GIT/mm2/run_fetches.py
 
-# Run every minute from 9:00 AM to 10:00 AM
-# * 10-11 * * * /usr/bin/python3 /home/arvypi/Desktop/invest/run_fetches.py
+# Run every hour from 6:59 AM to 5:00 PM
+59 6-17 * * * /home/arvypi/venvs/venv-mm2/bin/python /home/arvypi/GIT/mm2/run_fetches.py
 
 # Run every minute from 5:00 PM to 9:59 PM
-# * 17-21 * * * /usr/bin/python3 /home/arvypi/Desktop/invest/run_fetches.py
-
-
-# * * * * * /usr/bin/python3 /home/aze/GIT/mm2/run_fetches.py /home/aze/GIT/mm2/cron.log 2>&1
+* 17-21 * * * /home/arvypi/venvs/venv-mm2/bin/python /home/arvypi/GIT/mm2/run_fetches.py

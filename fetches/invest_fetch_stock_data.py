@@ -2,8 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import json
 from datetime import datetime
-from utilities.config import SYMBOLS
-from utilities.log_config import logger
+from config import SYMBOLS
+from log_config import logger
 import os
 from dotenv import load_dotenv
 

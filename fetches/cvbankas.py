@@ -2,9 +2,16 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import os
-from utilities.log_config import logger
-from utilities.config import CVBANKAS_KEYWORDS
+import sys
+import logging
 from dotenv import load_dotenv
+from datetime import datetime
+
+# Add the parent directory to sys.path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from log_config import logger
+from config import CVBANKAS_KEYWORDS
 
 load_dotenv()
 
@@ -90,6 +97,7 @@ def is_salary_above_3500(salary):
 
 def save_cvbankas_jobs(jobs):
     data_to_save = {
+        "fetch_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "jobs": jobs
     }
 

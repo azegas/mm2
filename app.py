@@ -3,7 +3,7 @@ import os
 import json
 from dotenv import load_dotenv
 from flask_socketio import SocketIO, emit
-from utilities.log_config import logger
+from log_config import logger
 
 load_dotenv()
 base_dir = os.getenv("BASE_DIR")
@@ -36,8 +36,8 @@ def read_cvbankas_data():
     
 @socketio.on('connect')
 def handle_connect():
-    # emit('stock_display_refresh', read_stock_data())
-    # emit('cvbankas_display_refresh', read_cvbankas_data())
+    emit('stock_display_refresh', read_stock_data())
+    emit('cvbankas_display_refresh', read_cvbankas_data())
     emit('sensor_display_refresh', read_sensor_data())
 
 @socketio.on('request_stock_update')

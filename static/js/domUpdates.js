@@ -1,17 +1,3 @@
-export function updateUpdateIntervals(intervalStock, intervalSensor, intervalCvbankas) {
-    const updateIntervals = document.getElementById('update-intervals');
-    if (updateIntervals) {
-        const stockInterval = intervalStock / 1000 >= 60 ? `${intervalStock / 60000} minutes` : `${intervalStock / 1000} seconds`;
-        const sensorInterval = intervalSensor / 1000 >= 60 ? `${intervalSensor / 60000} minutes` : `${intervalSensor / 1000} seconds`;
-        const cvbankasInterval = intervalCvbankas / 1000 >= 60 ? `${intervalCvbankas / 60000} minutes` : `${intervalCvbankas / 1000} seconds`;
-        updateIntervals.innerHTML = `
-            <span>Sensor - ${sensorInterval}&nbsp;|&nbsp;</span>
-            <span>Stock - ${stockInterval}&nbsp;|&nbsp;</span>
-            <span>Cvbankas - ${cvbankasInterval}</span>
-        `;
-    }
-}
-
 export function updateStockData(data) {
     const stockDiv = document.getElementById('stock_data');
     if (stockDiv) {
@@ -32,7 +18,6 @@ export function updateStockData(data) {
                             </span>
                             <span class="volume">Volume - ${details.volume}</span>
                             <span class="timestamp">As of ${details.timestamp}</span>
-                            <img src="/static/images/${symbol}_high_prices_with_volume.png" alt="${symbol} High Prices Chart" class="stock-chart">
                         </span>
                     </div>
                 </div>
@@ -63,6 +48,12 @@ export function updateCvbankasData(data) {
     const jobsContainer = document.getElementById('cvbankas_jobs');
     jobsContainer.innerHTML = ''; // Clear previous content
     
+    // Add timestamp at the top of all jobs
+    const timestampElement = document.createElement('p');
+    timestampElement.className = 'cvbankas-timestamp timestamp';
+    timestampElement.innerHTML = `<strong>Jobs updated at:</strong> ${data.fetch_date}`;
+    jobsContainer.appendChild(timestampElement);
+
     const jobCards = document.createElement('div');
     jobCards.className = 'job-cards';
     
@@ -83,3 +74,14 @@ export function updateCvbankasData(data) {
     jobsContainer.appendChild(jobCards);
 }
 
+
+export function updateCurrentTime() {
+    const currentTimeElement = document.getElementById('current-time');
+    if (currentTimeElement) {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        currentTimeElement.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+}

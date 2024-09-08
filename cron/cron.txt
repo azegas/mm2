@@ -22,4 +22,4 @@
 # * 17-21 * * * /usr/bin/python3 /home/arvypi/Desktop/invest/run_fetches.py
 
 
-* * * * * /usr/bin/python3 /home/aze/GIT/mm2/run_fetches.py /home/aze/GIT/mm2/cron.log 2>&1
+# * * * * * /usr/bin/python3 /home/aze/GIT/mm2/run_fetches.py /home/aze/GIT/mm2/cron.log 2>&1

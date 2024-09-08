@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import StrMethodFormatter
 import csv
 from datetime import datetime
-from config import SYMBOLS
-from log_config import logger
+from utilities.config import SYMBOLS
+from utilities.log_config import logger
 import os
 from dotenv import load_dotenv
 

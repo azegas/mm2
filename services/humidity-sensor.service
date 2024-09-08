@@ -1,0 +1,12 @@
+[Unit]
+Description=Humidity Sensor Service
+After=network.target
+
+[Service]
+ExecStart=/home/arvypi/venvs/venv-mm2/bin/python /home/arvypi/GIT/mm2/fetches/raspberry_humidity.py
+WorkingDirectory=/home/arvypi/GIT/mm2
+Restart=always
+User=arvypi
+
+[Install]
+WantedBy=multi-user.target

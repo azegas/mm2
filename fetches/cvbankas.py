@@ -2,8 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import os
-from log_config import logger
-from config import CVBANKAS_KEYWORDS
+from utilities.log_config import logger
+from utilities.config import CVBANKAS_KEYWORDS
 from dotenv import load_dotenv
 
 load_dotenv()

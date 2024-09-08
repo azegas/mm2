@@ -2,8 +2,8 @@ import time
 import board
 import adafruit_dht
 import json
-from datetime import datetime
 import os
+from datetime import datetime
 
 # + to pin 2 (5v)
 # - to pin 6 (gnd)
@@ -19,8 +19,7 @@ print("DHT22 Test Program")
 print("Press Ctrl+C to exit")
 
 # Ensure the data directory exists
-data_dir = os.path.join(os.path.dirname(__file__), '..', 'data')
-os.makedirs(data_dir, exist_ok=True)
+os.makedirs('data', exist_ok=True)
 
 try:
     while True:
@@ -32,15 +31,15 @@ try:
             if humidity is not None and temperature is not None:
                 print(f"Temperature: {temperature:.1f}°C, Humidity: {humidity:.1f}%")
                 
-                # Prepare data to save
+                # Create a dictionary with the sensor data
                 sensor_data = {
+                    "timestamp": datetime.now().strftime("%H:%M:%S"),
                     "temperature": round(temperature, 1),
-                    "humidity": round(humidity, 1),
-                    "last_update": datetime.now().strftime("%H:%M:%S")
+                    "humidity": round(humidity, 1)
                 }
                 
-                # Save data to JSON file
-                with open(os.path.join(data_dir, 'sensor_data.json'), 'w') as f:
+                # Write the data to a JSON file
+                with open('data/sensor_data.json', 'w') as f:
                     json.dump(sensor_data, f, indent=4)
             else:
                 print("Failed to retrieve data from DHT22 sensor")

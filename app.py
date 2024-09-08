@@ -3,7 +3,7 @@ import os
 import json
 from dotenv import load_dotenv
 from flask_socketio import SocketIO, emit
-from log_config import logger
+from utilities.log_config import logger
 
 load_dotenv()
 base_dir = os.getenv("BASE_DIR")

@@ -23,7 +23,7 @@ formatter = logging.Formatter(
 console_handler = logging.StreamHandler()
 console_handler.setFormatter(formatter)
 
-file_handler = logging.FileHandler("app.log")
+file_handler = logging.FileHandler("logs/app.log")
 file_handler.setFormatter(formatter)
 
 # Add handlers to the logger

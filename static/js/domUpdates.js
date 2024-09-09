@@ -17,6 +17,7 @@ export function updateStockData(data) {
                                 <span class="change-percent">${details.change_percent}</span>
                             </span>
                             <span class="volume">Volume - ${details.volume}</span>
+                            <span class="one-year-estimate">1y Target Est - $${details.one_year_estimate}</span>
                             <span class="timestamp">As of ${details.timestamp}</span>
                         </span>
                     </div>
@@ -28,9 +29,15 @@ export function updateStockData(data) {
 }
 
 export function updateSensorData(data) {
-    document.getElementById('temperature').textContent = data.temperature;
-    document.getElementById('humidity').textContent = data.humidity;
-    document.getElementById('timestamp').textContent = data.timestamp;
+    const temperatureElement = document.getElementById('temperature');
+    const humidityElement = document.getElementById('humidity');
+    const timestampElement = document.getElementById('timestamp');
+
+    if (temperatureElement && humidityElement && timestampElement) {
+        temperatureElement.textContent = `${data.temperature} °C`;
+        humidityElement.textContent = `${data.humidity} %`;
+        timestampElement.textContent = data.timestamp;
+    }
 }
           
 export function updateTextColors(data) {

@@ -9,6 +9,7 @@ Magic mirror 2
 - [ ] stocks - top gainers
 - [ ] stocks - top losers
 - [x] stocks - volume
+- [ ] quote of the day
 - [ ] google trends topics - https://trends.google.com/trending?geo=US
 - [ ] notification when big change happened or smth like that. or simply show todays trends in telegram kaip zinute
 - [ ] raspberry pi uptime 

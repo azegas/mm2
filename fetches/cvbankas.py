@@ -97,7 +97,7 @@ def is_salary_above_3500(salary):
 
 def save_cvbankas_jobs(jobs):
     data_to_save = {
-        "fetch_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "fetch_date": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "jobs": jobs
     }
 

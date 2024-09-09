@@ -10,19 +10,26 @@
 </head>
 <body>
     <div class="grid-container">
+
         <!-- First column with twice the width -->
         <div class="column column-1">
-            <div id="stock_data"></div>
+            <div id="stock_data" class="row"></div>
             <div id="cvbankas_jobs" class="row"></div>
         </div>
 
         <!-- Second column -->
         <div class="column column-2">
-            <div class="row" id="current-time">
-            </div>
+            <div class="row" id="current-time"></div>
+
             <div class="row">
-                <div>Temperature - <span id="temperature"></span></div>
-                <div>Humidity - <span id="humidity"></span></div>
+                <div class="sensor-data">
+                    <img src="/static/icons/temperature.png" alt="Temperature">
+                    <span class="sensor-data-value" id="temperature"></span>
+                </div>
+                <div class="sensor-data">
+                    <img src="/static/icons/humidity.png" alt="Humidity">
+                    <span class="sensor-data-value" id="humidity"></span>
+                </div>
                 <small class="timestamp">Last Update - <span id="timestamp"></span></small>
             </div>
             <div class="row">Row 2, Column 2</div>

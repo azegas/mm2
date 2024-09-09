@@ -9,11 +9,11 @@ SYMBOLS = [
     "META", 
     # "VUAA.L", 
     # "FRHC", 
-    # "TM",
-    # "NVDA",
-    # "MSFT",
-    # "GOOGL",
-    # "AMZN",    
+    "TM",
+    "NVDA",
+    "MSFT",
+    "GOOGL",
+    "AMZN",    
 ]
 HISTORICAL_URL = "https://query1.finance.yahoo.com/v7/finance/download/"
 START_DATE_UNIX = int(start_date.timestamp())

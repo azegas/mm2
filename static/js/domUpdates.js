@@ -3,7 +3,10 @@ export function updateStockData(data) {
     if (stockDiv) {
         stockDiv.innerHTML = ''; // Clear previous content
         
-        Object.entries(data).forEach(([symbol, details]) => {
+        const stockCards = document.createElement('div');
+        stockCards.className = 'stock-cards';
+        
+        Object.entries(data.stocks).forEach(([symbol, details]) => {
             const stockCard = document.createElement('div');
             stockCard.className = 'stock-card';
             stockCard.innerHTML = `
@@ -18,13 +21,20 @@ export function updateStockData(data) {
                             </span>
                             <span class="volume">Volume - ${details.volume}</span>
                             <span class="one-year-estimate">1y Target Est - $${details.one_year_estimate}</span>
-                            <span class="timestamp">As of ${details.timestamp}</span>
                         </span>
                     </div>
                 </div>
             `;
-            stockDiv.appendChild(stockCard);
+            stockCards.appendChild(stockCard);
         });
+        
+        stockDiv.appendChild(stockCards);
+
+        // Add timestamp for all stock data
+        const timestampElement = document.createElement('p');
+        timestampElement.className = 'stock-timestamp timestamp';
+        timestampElement.textContent = `Stocks updated at: ${data.timestamp}`;
+        stockDiv.appendChild(timestampElement);
     }
 }
 
@@ -55,12 +65,6 @@ export function updateCvbankasData(data) {
     const jobsContainer = document.getElementById('cvbankas_jobs');
     jobsContainer.innerHTML = ''; // Clear previous content
     
-    // Add timestamp at the top of all jobs
-    const timestampElement = document.createElement('p');
-    timestampElement.className = 'cvbankas-timestamp timestamp';
-    timestampElement.innerHTML = `<strong>Jobs updated at:</strong> ${data.fetch_date}`;
-    jobsContainer.appendChild(timestampElement);
-
     const jobCards = document.createElement('div');
     jobCards.className = 'job-cards';
     
@@ -68,17 +72,27 @@ export function updateCvbankasData(data) {
         const card = document.createElement('div');
         card.className = 'job-card';
         card.innerHTML = `
-            <img src="${job.image_link}" alt="${job.company} logo" class="job-image">
-            <div class="job-details">
-                <p class="job-title">${job.title}</p>
-                <p class="job-company"><strong>Company:</strong> ${job.company}</p>
-                <p class="job-salary"><strong>Salary:</strong> ${job.salary}</p>
+            <div class="job-info">
+                <div class="row">
+                    <img src="${job.image_link}" alt="${job.company} logo" class="job-image">
+                    <span class="job-title">${job.title}</span>
+                    <span class="data">
+                        <span class="job-company">${job.company}</span>
+                        <span class="job-salary">${job.salary}</span>
+                    </span>
+                </div>
             </div>
         `;
         jobCards.appendChild(card);
     });
     
     jobsContainer.appendChild(jobCards);
+
+    // Add timestamp at the bottom of all jobs
+    const timestampElement = document.createElement('p');
+    timestampElement.className = 'cvbankas-timestamp timestamp';
+    timestampElement.textContent = `Jobs updated at: ${data.fetch_date}`;
+    jobsContainer.appendChild(timestampElement);
 }
 
 

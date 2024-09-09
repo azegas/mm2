@@ -59,7 +59,6 @@ def fetch_stock_data():
                 if one_year_estimate_element
                 else "N/A"
             ),
-            "timestamp": fetch_time,  # Add the timestamp to each stock entry
         }
 
         logger.info(
@@ -69,11 +68,11 @@ def fetch_stock_data():
 
     logger.info("Fetched stock data for %s", SYMBOLS)
     logger.debug("Stock data %s", stock_data)
-    save_stock_data(stock_data)
+    save_stock_data(stock_data, fetch_time)
     logger.info("Fetched stock data END")
     return stock_data
 
-def save_stock_data(stock_data):
+def save_stock_data(stock_data, fetch_time):
     base_dir = os.getenv("BASE_DIR")
     file_path = os.path.join(base_dir, "data/stock_data.json")
 
@@ -81,8 +80,12 @@ def save_stock_data(stock_data):
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
     try:
+        data_to_save = {
+            "timestamp": fetch_time,
+            "stocks": stock_data
+        }
         with open(file_path, "w") as file:
-            json.dump(stock_data, file, indent=4)
+            json.dump(data_to_save, file, indent=4)
         logger.info(f"Stock data saved to {file_path}")
     except IOError as e:
         logger.error(f"Failed to save stock data: {e}")

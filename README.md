@@ -4,6 +4,7 @@ Magic mirror 2
 
 # TODO
 
+- [ ] koks oras madride
 - [x] alphavantage - tik 25 queires KRC - https://www.alphavantage.co/documentation/
 - [ ] stocks - most advanced most declined
 - [ ] stocks - top gainers

@@ -5,6 +5,11 @@ Magic mirror 2
 # TODO
 
 - [ ] koks oras madride
+- [ ] pamegink linkedina del job searches
+- [ ] pamegink google calendar embed i website (jokiu fetchu hopefully...)
+- [ ] arba google trends explore trends - https://trends.google.com/trends/explore?hl=en-GB
+- [ ] google trends paskutiniu 24val LT - https://trends.google.com/trending?geo=LT&hl=en-GB&hours=24
+- [ ] google trends united states 4 hour - https://trends.google.com/trending?geo=US&hl=en-GB&hours=4
 - [x] alphavantage - tik 25 queires KRC - https://www.alphavantage.co/documentation/
 - [ ] stocks - most advanced most declined
 - [ ] stocks - top gainers
@@ -39,6 +44,8 @@ Magic mirror 2
 pip install flask flask-socketio python-dotenv beautifulsoup4 requests
 # humidity sensor
 pip install adafruit-circuitpython-dht
+# raspberry system info
+pip install psutil gpiozero
 ```
 
 ## ssh
@@ -112,3 +119,17 @@ its pins - https://images.theengineeringprojects.com/image/main/2019/01/Introduc
 
 - TODO try to control delay
 - TODO try to control sensitivity
+
+## Adding new service step by step
+
+- create a new entry in `index.html`
+- create a way to fetch the data (.py file in fetches folder)
+- make sure the script works and it creates a `.json` file with data in it
+- in `app.py` create a function to read the data from the file
+- create a new socket (@socketio.on) in `app.py` that, when callled from js, will execute the read function and pass the data to the js function in `main.js`
+- inside of the `domUpdates.js` file create a js function that takes the DATA(from python file) and creates html element with the DATA (in javascript)
+- create a new socket event listener in `main.js` that calls the corresponding update function in `domUpdates.js` when data is received from the server
+- add entry in `main.js` to call the socket function periodically
+- add entry to connect socket so it displays as page loads
+- schedule the python function to perdiodically fetch data
+- schedule this data to run on connect

@@ -106,3 +106,10 @@ export function updateCurrentTime() {
         currentTimeElement.textContent = `${hours}:${minutes}:${seconds}`;
     }
 }
+
+export function updateTestData(data) {
+    const testDiv = document.getElementById('test_only');
+    if (testDiv) {
+        testDiv.textContent = data.text;
+    }
+}

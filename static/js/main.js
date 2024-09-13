@@ -1,16 +1,27 @@
-import { updateStockData, updateTextColors, updateSensorData, updateCvbankasData, updateCurrentTime } from './domUpdates.js';
+/**
+ * Main JavaScript file for handling real-time updates and DOM manipulation
+ * 
+ * This script sets up WebSocket connections, handles incoming data,
+ * and schedules periodic updates for various components of the application.
+ */
 
+import { updateStockData, updateTextColors, updateSensorData, updateCvbankasData, updateCurrentTime, updateTestData } from './domUpdates.js';
+
+// Initialize WebSocket connection
 const socket = io();
 
-let intervalStock = 10000;
-let intervalSensor = 1000;
-let intervalCvbankas = 10000;
+// Update intervals (in milliseconds)
+const intervalStock = 10000;    // 10 seconds
+const intervalSensor = 1000;    // 1 second
+const intervalCvbankas = 10000; // 10 seconds
+const intervalTest = 1000;      // 1 second
 
+// Event listener for successful connection
 socket.on('connect', () => {
     console.log('Connected to server');
-    updateCurrentTime();
 });
 
+// Event listeners for various data updates
 socket.on('stock_display_refresh', (data) => {
     updateStockData(data);
     updateTextColors();
@@ -24,16 +35,26 @@ socket.on('cvbankas_display_refresh', (data) => {
     updateCvbankasData(data);
 });
 
+socket.on('test_display_refresh', (data) => {
+    updateTestData(data);
+});
+
+// Schedule periodic update requests
 setInterval(() => {
     socket.emit('request_cvbankas_update');
-}, intervalCvbankas); // 1 minute
+}, intervalCvbankas);
 
 setInterval(() => {
     socket.emit('request_sensor_update');
-}, intervalSensor); // 1 second
+}, intervalSensor);
 
 setInterval(() => {
     socket.emit('request_stock_update');
-}, intervalStock); // 1 minute
+}, intervalStock);
 
-setInterval(updateCurrentTime, 1000); 
+setInterval(() => {
+    socket.emit('request_test_update');
+}, intervalTest);
+
+// Update current time every second
+setInterval(updateCurrentTime, 1000);

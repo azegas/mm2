@@ -5,7 +5,7 @@
  * and schedules periodic updates for various components of the application.
  */
 
-import { updateStockData, updateTextColors, updateSensorData, updateCvbankasData, updateCurrentTime, updateTestData, updateSystemInfo } from './domUpdates.js';
+import { updateStockData, updateTextColors, updateSensorData, updateCvbankasData, updateCurrentTime, updateTestData, updateSystemInfo, updateRandomQuote } from './domUpdates.js';
 
 
 // Schedule periodic update requests
@@ -26,6 +26,10 @@ setInterval(() => {
 setInterval(() => {
     socket.emit('server_give_me_system_info');
 }, 1000);
+
+setInterval(() => {
+    socket.emit('server_give_me_random_quote');
+}, 10000);
 
 setInterval(() => {
     socket.emit('server_give_me_test_data');
@@ -50,6 +54,7 @@ socket.on('connect', () => {
     socket.emit('server_give_me_stock_data');
     socket.emit('server_give_me_system_info');
     socket.emit('server_give_me_test_data');
+    socket.emit('server_give_me_random_quote');
     updateCurrentTime();
 });
 
@@ -71,6 +76,10 @@ socket.on('client_here_is_cvbankas_data', (data) => {
 
 socket.on('client_here_is_system_info', (data) => {
     updateSystemInfo(data);
+});
+
+socket.on('client_here_is_random_quote', (data) => {
+    updateRandomQuote(data);
 });
 
 socket.on('client_here_is_test_data', (data) => {

@@ -15,10 +15,10 @@ Magic mirror 2
 - [ ] stocks - top gainers
 - [ ] stocks - top losers
 - [x] stocks - volume
-- [ ] quote of the day
+- [x] quote of the day
 - [ ] google trends topics - https://trends.google.com/trending?geo=US
 - [ ] notification when big change happened or smth like that. or simply show todays trends in telegram kaip zinute
-- [ ] raspberry pi uptime 
+- [x] raspberry pi uptime 
 - [x] Running eilutė kaip NASDAQe (labai trukineja ji raspberryje)
 - [ ] fondu duomenys - https://www.swedbank.lt/private/investor/funds/allFunds/list/details
 - [x] humidity inside
@@ -125,8 +125,6 @@ Frontend:
 
 ### Create a script that is running in the backend and fetches data, saves the results to a file
 
-### Schedule that script to run periodically (and periodically save the data to the file)
-
 ### Create a way to read the data from the file `read_cvbankas_data`:
 
 ```python
@@ -183,3 +181,7 @@ socket.on('client_here_is_cvbankas_data', (data) => {
 ```html
 <div id="cvbankas_jobs" class="row"></div>
 ```
+
+### Schedule that script to run periodically (and periodically save the data to the file)
+
+Update cronjob file or create a system service to run the script periodically.

@@ -139,6 +139,13 @@ export function updateCurrentTime() {
     }
 }
 
+export function updateRandomQuote(data) {
+    const quoteDiv = document.getElementById('quote');
+    if (quoteDiv) {
+        quoteDiv.textContent = `${data.quote.content} - ${data.quote.author}`;
+    }
+}
+
 export function updateTestData(data) {
     const testDiv = document.getElementById('test_only');
     if (testDiv) {

@@ -55,6 +55,14 @@ def read_system_info():
             return data
     return {"error": "Data not found"}
 
+def read_random_quote():
+    file_path = os.path.join(base_dir, "data/random_quote.json")
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+            return data
+    return {"error": "Data not found"}
+
 
 # SocketIO Event Handlers (BACKEND, SERVER)
 # Listening for incoming connections such as `server_give_me_stock_data`
@@ -87,6 +95,10 @@ def event_handler_cvbankas():
 @socketio.on('server_give_me_system_info')
 def event_handler_system_info():
     emit('client_here_is_system_info', read_system_info())
+
+@socketio.on('server_give_me_random_quote')
+def event_handler_random_quote():
+    emit('client_here_is_random_quote', read_random_quote())
 
 @socketio.on('server_give_me_test_data')
 def event_handler_test():

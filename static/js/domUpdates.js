@@ -39,14 +39,33 @@ export function updateStockData(data) {
 }
 
 export function updateSensorData(data) {
-    const temperatureElement = document.getElementById('temperature');
-    const humidityElement = document.getElementById('humidity');
-    const timestampElement = document.getElementById('timestamp');
+    const sensorDataDiv = document.getElementById('sensor_data');
+    if (sensorDataDiv) {
+        sensorDataDiv.innerHTML = ''; // Clear previous content
 
-    if (temperatureElement && humidityElement && timestampElement) {
-        temperatureElement.textContent = `${data.temperature} °C`;
-        humidityElement.textContent = `${data.humidity} %`;
-        timestampElement.textContent = data.timestamp;
+        // Create temperature element
+        const temperatureDiv = document.createElement('div');
+        temperatureDiv.className = 'sensor-data';
+        temperatureDiv.innerHTML = `
+            <img src="/static/icons/temperature.png" alt="Temperature">
+            <span class="sensor-data-value">${data.temperature} °C</span>
+        `;
+        sensorDataDiv.appendChild(temperatureDiv);
+
+        // Create humidity element
+        const humidityDiv = document.createElement('div');
+        humidityDiv.className = 'sensor-data';
+        humidityDiv.innerHTML = `
+            <img src="/static/icons/humidity.png" alt="Humidity">
+            <span class="sensor-data-value">${data.humidity} %</span>
+        `;
+        sensorDataDiv.appendChild(humidityDiv);
+
+        // Create timestamp element
+        const timestampElement = document.createElement('small');
+        timestampElement.className = 'timestamp';
+        timestampElement.innerHTML = `Last Update - <span>${data.timestamp}</span>`;
+        sensorDataDiv.appendChild(timestampElement);
     }
 }
           
@@ -93,6 +112,19 @@ export function updateCvbankasData(data) {
     timestampElement.className = 'cvbankas-timestamp timestamp';
     timestampElement.textContent = `Jobs updated at: ${data.fetch_date}`;
     jobsContainer.appendChild(timestampElement);
+}
+
+export function updateSystemInfo(data) {
+    const systemInfoDiv = document.getElementById('system_info');
+    if (systemInfoDiv) {
+        systemInfoDiv.innerHTML = ''; // Clear previous content
+        systemInfoDiv.innerHTML = `
+            <p>CPU Usage: ${data.cpu_usage}%</p>
+            <p>Memory Usage: ${data.memory_usage}%</p>
+            <p>Temperature: ${data.temperature} °C</p>
+            <p>Uptime: ${data.uptime}</p>
+        `;
+    }
 }
 
 

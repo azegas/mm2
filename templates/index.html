@@ -1,45 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/static/styles.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-
-    <title>Two Column Layout</title>
+    <title>MM2</title>
 </head>
+
 <body>
     <div class="grid-container">
-
-        <!-- First column with twice the width -->
         <div class="column column-1">
             <div id="stock_data" class="row"></div>
             <div id="cvbankas_jobs" class="row"></div>
         </div>
-
-        <!-- Second column -->
         <div class="column column-2">
             <div class="row" id="current-time"></div>
-
-            <div class="row">
-                <div class="sensor-data">
-                    <img src="/static/icons/temperature.png" alt="Temperature">
-                    <span class="sensor-data-value" id="temperature"></span>
-                </div>
-                <div class="sensor-data">
-                    <img src="/static/icons/humidity.png" alt="Humidity">
-                    <span class="sensor-data-value" id="humidity"></span>
-                </div>
-                <small class="timestamp">Last Update - <span id="timestamp"></span></small>
-            </div>
-            <div class="row" id="test_only">Row 2, Column 2</div>
-            <div class="row">Row 3, Column 2</div>
+            <div class="row" id="sensor_data"></div>
+            <div class="row" id="test_only"></div>
+            <div class="row" id="system_info"></div>
             <div class="row">Row 4, Column 2</div>
             <div class="row">Row 5, Column 2</div>
         </div>
-        
     </div>
-
     <script type="module" src="/static/js/main.js"></script>
 </body>
+
 </html>

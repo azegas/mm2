@@ -1,7 +1,7 @@
 import psutil
 from gpiozero import CPUTemperature
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 
 def get_system_info():
@@ -9,11 +9,13 @@ def get_system_info():
     memory = psutil.virtual_memory().percent
     temp = CPUTemperature().temperature
     date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    uptime = timedelta(seconds=int(psutil.boot_time()))
     return {
         "timestamp": date,
         "cpu_usage": cpu,
         "memory_usage": memory,
-        "temperature": temp
+        "temperature": temp,
+        "uptime": str(uptime)
     }
 
 def save_to_file(data, filename="data/system_info.json"):

@@ -5,7 +5,7 @@
  * and schedules periodic updates for various components of the application.
  */
 
-import { updateStockData, updateTextColors, updateSensorData, updateCvbankasData, updateCurrentTime, updateTestData } from './domUpdates.js';
+import { updateStockData, updateTextColors, updateSensorData, updateCvbankasData, updateCurrentTime, updateTestData, updateSystemInfo } from './domUpdates.js';
 
 
 // Schedule periodic update requests
@@ -24,6 +24,10 @@ setInterval(() => {
 }, 10000);
 
 setInterval(() => {
+    socket.emit('server_give_me_system_info');
+}, 1000);
+
+setInterval(() => {
     socket.emit('server_give_me_test_data');
 }, 1000);
 
@@ -39,7 +43,14 @@ const socket = io();
 // Event listener for successful connection
 // This logs a message when the client successfully connects to the server
 socket.on('connect', () => {
+    // load viska vienu kartu, o paskui jau ziurek pagal intervalus kaip daznai updeitinsis
     console.log('Connected to server');
+    socket.emit('server_give_me_cvbankas_data');
+    socket.emit('server_give_me_sensor_data');
+    socket.emit('server_give_me_stock_data');
+    socket.emit('server_give_me_system_info');
+    socket.emit('server_give_me_test_data');
+    updateCurrentTime();
 });
 
 // Event listeners for various data updates
@@ -56,6 +67,10 @@ socket.on('client_here_is_sensor_data', (data) => {
 
 socket.on('client_here_is_cvbankas_data', (data) => {
     updateCvbankasData(data);
+});
+
+socket.on('client_here_is_system_info', (data) => {
+    updateSystemInfo(data);
 });
 
 socket.on('client_here_is_test_data', (data) => {

@@ -84,6 +84,10 @@ def event_handler_sensor():
 def event_handler_cvbankas():
     emit('client_here_is_cvbankas_data', read_cvbankas_data())
 
+@socketio.on('server_give_me_system_info')
+def event_handler_system_info():
+    emit('client_here_is_system_info', read_system_info())
+
 @socketio.on('server_give_me_test_data')
 def event_handler_test():
     emit('client_here_is_test_data', read_test_data())

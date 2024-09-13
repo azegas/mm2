@@ -123,7 +123,11 @@ Frontend:
 `app.py` - backend, server (provides data, ways to read the data(connections to connect to))
 `static/js/main.js` - frontend, client (requests data)
 
-### Create a way to read the data `read_cvbankas_data`:
+### Create a script that is running in the backend and fetches data, saves the results to a file
+
+### Schedule that script to run periodically (and periodically save the data to the file)
+
+### Create a way to read the data from the file `read_cvbankas_data`:
 
 ```python
 def read_cvbankas_data():
@@ -154,22 +158,24 @@ setInterval(() => {
 }, 1000);
 ```
 
-### Describe what will happen when the data is received (it will call the js function that updates the DOM):
+### Describe what will happen when the data is received:
 
-Server emitted `client_here_is_cvbankas_data`, so when the client gets `client_here_is_cvbankas_data` and data with it, it will call `updateCvbankasData(data)`
+Server emitted `client_here_is_cvbankas_data`, so when the client gets `client_here_is_cvbankas_data` and data with it, it will call `updateCvbankasData(data)` (create this js function) in `domUpdates.js`
 
-```js
-socket.on('client_here_is_cvbankas_data', (data) => {
-    updateCvbankasData(data);
-});
-```
-
-### Describe how the DOM will be changed with the received data:
+Describe how the DOM will be changed with the received data:
 
 ```js
 export function updateCvbankasData(data) {
     const jobsContainer = document.getElementById('cvbankas_jobs');
     jobsContainer.innerHTML = ''; // Clear previous content
+```
+
+Add this to `main.js`, dont forget to import the `updateCvbankasData` function from `domUpdates.js`
+
+```js
+socket.on('client_here_is_cvbankas_data', (data) => {
+    updateCvbankasData(data);
+});
 ```
 
 ### A place where the data will be displayed:

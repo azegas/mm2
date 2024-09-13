@@ -2,11 +2,13 @@ from fetches.invest_fetch_stock_data import fetch_stock_data
 # from fetches.invest_fetch_historical_data import fetch_historical_data
 # from fetches.invest_draw_charts import generate_stock_chart_high_prices_with_volume
 from fetches.cvbankas import fetch_cvbankas_jobs
+from fetches.raspberry_system_info import fetch_raspberry_system_info
 
 def run_all_fetches():
     try:
         fetch_cvbankas_jobs()
         fetch_stock_data()
+        fetch_raspberry_system_info()
         # fetch_historical_data()
         # generate_stock_chart_high_prices_with_volume()
     except Exception as e:

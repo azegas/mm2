@@ -31,7 +31,12 @@ def read_cvbankas_data():
     file_path = os.path.join(base_dir, "data/cvbankas_ads.json")
     if os.path.exists(file_path):
         with open(file_path, "r") as file:
-            return json.load(file)
+def read_system_info():
+    file_path = os.path.join(base_dir, "data/system_info.json")
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+            return data
     return {"error": "Data not found"}
     
 @socketio.on('connect')

@@ -56,43 +56,42 @@ def read_system_info():
     return {"error": "Data not found"}
 
 
-# ------------------------------
-# SocketIO Event Handlers
-# 
-# The following section defines event handlers for various SocketIO events,
-# which facilitate real-time updates between the server and connected clients.
-# ------------------------------
-    
-# TODO Check the size of the data you're emitting in your Socket.IO event handlers. 
-# TODO If the data is too big, the client might not be able to handle it and the connection might be dropped.
-# TODO Consider using chunking or streaming to send the data in smaller chunks.
-# Jo, taip buna, kai serveriukas nepasileidiza tiesiog.
-@socketio.on('connect') # event handler
-def handle_connect(): # function to be called when the event handler is triggered
-    emit('stock_display_refresh', read_stock_data()) # emit is used to send data to the client
-    emit('cvbankas_display_refresh', read_cvbankas_data())
-    emit('sensor_display_refresh', read_sensor_data())
-    emit('test_display_refresh', read_test_data())
+# SocketIO Event Handlers (BACKEND, SERVER)
+# Listening for incoming connections such as `server_give_me_stock_data`
+# and sending back the data(that we received over `read_stock_data`) 
+# to the client over `client_here_is_stock_data`
 
-@socketio.on('request_stock_update')
-def handle_stock_update_request():
-    emit('stock_display_refresh', read_stock_data())
+@socketio.on('connect')
+def event_handler_connect():
+    """
+    Event handler for client connection.
+    When a client connects, it sends initial data for all components.
+    """
+    emit('client_here_is_stock_data', read_stock_data())
+    emit('client_here_is_cvbankas_data', read_cvbankas_data())
+    emit('client_here_is_sensor_data', read_sensor_data())
+    emit('client_here_is_test_data', read_test_data())
 
-@socketio.on('request_sensor_update')
-def handle_sensor_update_request():
-    emit('sensor_display_refresh', read_sensor_data())
+@socketio.on('server_give_me_stock_data')
+def event_handler_stock():
+    emit('client_here_is_stock_data', read_stock_data())
 
-@socketio.on('request_cvbankas_update')
-def handle_cvbankas_update_request():
-    emit('cvbankas_display_refresh', read_cvbankas_data())
+@socketio.on('server_give_me_sensor_data')
+def event_handler_sensor():
+    emit('client_here_is_sensor_data', read_sensor_data())
 
-@socketio.on('request_test_update')
-def handle_test_update_request():
-    emit('test_display_refresh', read_test_data())
+@socketio.on('server_give_me_cvbankas_data')
+def event_handler_cvbankas():
+    emit('client_here_is_cvbankas_data', read_cvbankas_data())
+
+@socketio.on('server_give_me_test_data')
+def event_handler_test():
+    emit('client_here_is_test_data', read_test_data())
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
 if __name__ == "__main__":
+    # Run the Flask application with SocketIO
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)

@@ -66,20 +66,6 @@ TTransfer files from local directory to raspberry - `tranfer.bat`
 # crontab -e
 # crontab -l
 
-
-## How it works with socket.io
-
-Backend:
-- continuous process on the backend to fetch the data (cronjob)
-- cronjob fetches every minute or so during 05:00 - 07:00 and 17:00 - 22:00
-- when the cron job finished, usually it stores the results in a .json file
-
-Frontend:
-- on the frontend, we have a flask app
-- flask app in itself has some socketio functions that READ data from the files
-- We tell, with the help of javascript, how often to read the data of those files and then update the page with it
-
-
 ## Humidity sensor
 
 # humidity_pi
@@ -120,16 +106,74 @@ its pins - https://images.theengineeringprojects.com/image/main/2019/01/Introduc
 - TODO try to control delay
 - TODO try to control sensitivity
 
+# How it works with socket.io
+
+Backend:
+- continuous process on the backend to fetch the data (cronjob)
+- cronjob fetches every minute or so during 05:00 - 07:00 and 17:00 - 22:00
+- when the cron job finished, usually it stores the results in a .json file
+
+Frontend:
+- on the frontend, we have a flask app
+- flask app in itself has some socketio functions that READ data from the files
+- We tell, with the help of javascript, how often to read the data of those files and then update the page with it
+
 ## Adding new service step by step
 
-- create a new entry in `index.html`
-- create a way to fetch the data (.py file in fetches folder)
-- make sure the script works and it creates a `.json` file with data in it
-- in `app.py` create a function to read the data from the file
-- create a new socket (@socketio.on) in `app.py` that, when callled from js, will execute the read function and pass the data to the js function in `main.js`
-- inside of the `domUpdates.js` file create a js function that takes the DATA(from python file) and creates html element with the DATA (in javascript)
-- create a new socket event listener in `main.js` that calls the corresponding update function in `domUpdates.js` when data is received from the server
-- add entry in `main.js` to call the socket function periodically
-- add entry to connect socket so it displays as page loads
-- schedule the python function to perdiodically fetch data
-- schedule this data to run on connect
+`app.py` - backend, server (provides data, ways to read the data(connections to connect to))
+`static/js/main.js` - frontend, client (requests data)
+
+### Create a way to read the data `read_cvbankas_data`:
+
+```python
+def read_cvbankas_data():
+    file_path = os.path.join(base_dir, "data/cvbankas_ads.json")
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+            return data
+    return {"error": "Data not found"}
+```
+
+### Then we need to create a socket that the client can call:
+
+```python
+@socketio.on('server_give_me_cvbankas_data') # this is the socket that the client will call
+def handle_cvbankas_update_request():
+    # 'emit' is a Socket.IO method used to send events from the server to the client
+    # An alternative could be 'send', but 'emit' is more flexible as it allows custom event names
+    # Here, it sends the 'client_here_is_cvbankas_data' event with the data from read_cvbankas_data()
+    emit('client_here_is_cvbankas_data', read_cvbankas_data())
+```
+
+### Then we describe how often the client will be calling the socket:
+ 
+```js
+setInterval(() => {
+    socket.emit('server_give_me_cvbankas_data');
+}, 1000);
+```
+
+### Describe what will happen when the data is received (it will call the js function that updates the DOM):
+
+Server emitted `client_here_is_cvbankas_data`, so when the client gets `client_here_is_cvbankas_data` and data with it, it will call `updateCvbankasData(data)`
+
+```js
+socket.on('client_here_is_cvbankas_data', (data) => {
+    updateCvbankasData(data);
+});
+```
+
+### Describe how the DOM will be changed with the received data:
+
+```js
+export function updateCvbankasData(data) {
+    const jobsContainer = document.getElementById('cvbankas_jobs');
+    jobsContainer.innerHTML = ''; // Clear previous content
+```
+
+### A place where the data will be displayed:
+
+```html
+<div id="cvbankas_jobs" class="row"></div>
+```

@@ -7,54 +7,57 @@
 
 import { updateStockData, updateTextColors, updateSensorData, updateCvbankasData, updateCurrentTime, updateTestData } from './domUpdates.js';
 
+
+// Schedule periodic update requests
+// These setInterval functions send requests to the server at regular intervals
+// to get updated data for different parts of the application
+setInterval(() => {
+    socket.emit('server_give_me_cvbankas_data');
+}, 10000);
+
+setInterval(() => {
+    socket.emit('server_give_me_sensor_data');
+}, 1000);
+
+setInterval(() => {
+    socket.emit('server_give_me_stock_data');
+}, 10000);
+
+setInterval(() => {
+    socket.emit('server_give_me_test_data');
+}, 1000);
+
+setInterval(updateCurrentTime, 1000);
+
+
+// SocketIO Event Handlers (FRONTEND, CLIENT)
+
 // Initialize WebSocket connection
+// This creates a connection to the server using Socket.IO, enabling real-time communication
 const socket = io();
 
-// Update intervals (in milliseconds)
-const intervalStock = 10000;    // 10 seconds
-const intervalSensor = 1000;    // 1 second
-const intervalCvbankas = 10000; // 10 seconds
-const intervalTest = 1000;      // 1 second
-
 // Event listener for successful connection
+// This logs a message when the client successfully connects to the server
 socket.on('connect', () => {
     console.log('Connected to server');
 });
 
 // Event listeners for various data updates
-socket.on('stock_display_refresh', (data) => {
+// These functions are called when the server sends new data and the client(browser) receives it
+// They update different parts of the webpage with the new information
+socket.on('client_here_is_stock_data', (data) => {
     updateStockData(data);
     updateTextColors();
 });
 
-socket.on('sensor_display_refresh', (data) => {
+socket.on('client_here_is_sensor_data', (data) => {
     updateSensorData(data);
 });
 
-socket.on('cvbankas_display_refresh', (data) => {
+socket.on('client_here_is_cvbankas_data', (data) => {
     updateCvbankasData(data);
 });
 
-socket.on('test_display_refresh', (data) => {
+socket.on('client_here_is_test_data', (data) => {
     updateTestData(data);
 });
-
-// Schedule periodic update requests
-setInterval(() => {
-    socket.emit('request_cvbankas_update');
-}, intervalCvbankas);
-
-setInterval(() => {
-    socket.emit('request_sensor_update');
-}, intervalSensor);
-
-setInterval(() => {
-    socket.emit('request_stock_update');
-}, intervalStock);
-
-setInterval(() => {
-    socket.emit('request_test_update');
-}, intervalTest);
-
-// Update current time every second
-setInterval(updateCurrentTime, 1000);

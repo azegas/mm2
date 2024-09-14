@@ -1,5 +1,3 @@
-#### NOT WORKING, need gunicorn?
-
 [Unit]
 Description=MM2 Flask Application
 After=network.target
@@ -8,7 +6,6 @@ After=network.target
 ExecStart=/home/arvypi/venvs/venv-mm2/bin/python /home/arvypi/GIT/mm2/app.py
 WorkingDirectory=/home/arvypi/GIT/mm2
 Restart=always
-User=arvypi
 
 [Install]
 WantedBy=multi-user.target

@@ -145,10 +145,3 @@ export function updateRandomQuote(data) {
         quoteDiv.textContent = `${data.quote.content} - ${data.quote.author}`;
     }
 }
-
-export function updateTestData(data) {
-    const testDiv = document.getElementById('test_only');
-    if (testDiv) {
-        testDiv.textContent = data.text;
-    }
-}

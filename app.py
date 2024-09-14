@@ -16,12 +16,6 @@ socketio = SocketIO(app)
 # Functions to be used
 # ------------------------------
 
-def read_test_data():
-    data = {
-        "text": "testLOLOLO"
-    }
-    return data
-
 def read_stock_data():
     file_path = os.path.join(base_dir, "data/stock_data.json")
     if os.path.exists(file_path):
@@ -78,7 +72,6 @@ def event_handler_connect():
     emit('client_here_is_stock_data', read_stock_data())
     emit('client_here_is_cvbankas_data', read_cvbankas_data())
     emit('client_here_is_sensor_data', read_sensor_data())
-    emit('client_here_is_test_data', read_test_data())
 
 @socketio.on('server_give_me_stock_data')
 def event_handler_stock():
@@ -99,10 +92,6 @@ def event_handler_system_info():
 @socketio.on('server_give_me_random_quote')
 def event_handler_random_quote():
     emit('client_here_is_random_quote', read_random_quote())
-
-@socketio.on('server_give_me_test_data')
-def event_handler_test():
-    emit('client_here_is_test_data', read_test_data())
 
 @app.route("/")
 def home():

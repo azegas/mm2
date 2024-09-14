@@ -6,7 +6,7 @@ Magic mirror 2
 
 - [ ] koks oras madride
 - [ ] pamegink linkedina del job searches
-- [ ] pamegink google calendar embed i website (jokiu fetchu hopefully...)
+- [x] pamegink google calendar embed i website (jokiu fetchu hopefully...) - possible, did it, but not actually needed for us
 - [ ] arba google trends explore trends - https://trends.google.com/trends/explore?hl=en-GB
 - [ ] google trends paskutiniu 24val LT - https://trends.google.com/trending?geo=LT&hl=en-GB&hours=24
 - [ ] google trends united states 4 hour - https://trends.google.com/trending?geo=US&hl=en-GB&hours=4
@@ -14,6 +14,7 @@ Magic mirror 2
 - [ ] stocks - most advanced most declined
 - [ ] stocks - top gainers
 - [ ] stocks - top losers
+- [ ] trading view stock charts from (unfortunately lags a lot) https://www.tradingview.com/widget-docs/widgets/symbol-details/
 - [x] stocks - volume
 - [x] quote of the day
 - [ ] google trends topics - https://trends.google.com/trending?geo=US

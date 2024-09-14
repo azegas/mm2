@@ -118,12 +118,7 @@ export function updateSystemInfo(data) {
     const systemInfoDiv = document.getElementById('system_info');
     if (systemInfoDiv) {
         systemInfoDiv.innerHTML = ''; // Clear previous content
-        systemInfoDiv.innerHTML = `
-            <p>CPU Usage: ${data.cpu_usage}%</p>
-            <p>Memory Usage: ${data.memory_usage}%</p>
-            <p>Temperature: ${data.temperature} °C</p>
-            <p>Uptime: ${data.uptime}</p>
-        `;
+        systemInfoDiv.innerHTML = `<span>CPU: ${data.cpu_usage}% | RAM: ${data.memory_usage}% | Temp: ${data.temperature} °C | Uptime: ${data.uptime} | <span class="timestamp">Updated: ${data.timestamp}</span></span>`;
     }
 }
 

@@ -13,23 +13,23 @@ import { updateStockData, updateTextColors, updateSensorData, updateCvbankasData
 // to get updated data for different parts of the application
 setInterval(() => {
     socket.emit('server_give_me_cvbankas_data');
-}, 10000);
+}, 10000); // 10sec
 
 setInterval(() => {
     socket.emit('server_give_me_sensor_data');
-}, 1000);
+}, 1000); //1 sec
 
 setInterval(() => {
     socket.emit('server_give_me_stock_data');
-}, 10000);
+}, 10000); //10 sec
 
 setInterval(() => {
     socket.emit('server_give_me_system_info');
-}, 1000);
+}, 10000); //10 sec
 
 setInterval(() => {
     socket.emit('server_give_me_random_quote');
-}, 10000);
+}, 36000000); //10 hours
 
 setInterval(updateCurrentTime, 1000);
 

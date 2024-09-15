@@ -11,7 +11,7 @@ rsync -av --delete \
     --exclude='.git' \
     --exclude='__pycache__' \
     --exclude='.env' \
-    --exclude='app.log' \
+    --exclude='logs' \
     --exclude='data' \
     --exclude='static/images' \
     ../ "${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_PATH}"

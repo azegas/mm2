@@ -30,7 +30,7 @@ console_handler.setFormatter(formatter)
 
 # Get the base directory from environment variables
 base_dir = os.getenv("BASE_DIR")
-log_file_path = os.path.join(base_dir, "app.log")
+log_file_path = os.path.join(base_dir, "logs/app.log")
 
 file_handler = logging.FileHandler(log_file_path)
 file_handler.setFormatter(formatter)

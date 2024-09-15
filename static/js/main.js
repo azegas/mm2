@@ -29,7 +29,7 @@ setInterval(() => {
 
 setInterval(() => {
     socket.emit('server_give_me_random_quote');
-}, 36000000); //10 hours
+}, 3600000); //1 hour
 
 setInterval(updateCurrentTime, 1000);
 

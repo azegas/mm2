@@ -47,7 +47,7 @@ def fetch_cvbankas_jobs():
 
     logger.info(f"Successfully fetched job listings for keywords: {CVBANKAS_KEYWORDS}")
     logger.info("Fetch CVBankas jobs END")
-    # Save the filtered jobs
+    logger.info("##########################################################")
 
     return filtered_jobs
 

@@ -2,10 +2,15 @@ import requests
 from bs4 import BeautifulSoup
 import json
 from datetime import datetime
-from config import SYMBOLS
-from log_config import logger
 import os
 from dotenv import load_dotenv
+import sys
+
+# Add the parent directory to sys.path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from config import SYMBOLS
+from log_config import logger
 
 load_dotenv()
 
@@ -87,6 +92,8 @@ def save_stock_data(stock_data, fetch_time):
         with open(file_path, "w") as file:
             json.dump(data_to_save, file, indent=4)
         logger.info(f"Stock data saved to {file_path}")
+        logger.info("Fetch stock data END")
+        logger.info("##########################################################")
     except IOError as e:
         logger.error(f"Failed to save stock data: {e}")
 

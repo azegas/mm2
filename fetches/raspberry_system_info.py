@@ -1,11 +1,24 @@
 import psutil
 from gpiozero import CPUTemperature
 import json
-from datetime import datetime, timedelta
+from datetime import datetime
 import os
 import time
+import sys
+from dotenv import load_dotenv
 
-def get_system_info():
+# Add the parent directory to sys.path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from log_config import logger
+
+load_dotenv()
+
+def fetch_and_save_raspberry_system_info():
+    logger.info("##########################################################")
+    logger.info("Fetch raspberry system info START")
+
+    # Get system info
     cpu = psutil.cpu_percent(interval=1)  # Get CPU usage over 1 second
     memory = psutil.virtual_memory().percent
     temp = CPUTemperature().temperature
@@ -27,7 +40,7 @@ def get_system_info():
         else:
             uptime = f"{int(hours)}:{int(minutes):02d}"
     
-    return {
+    info = {
         "timestamp": date,
         "cpu_usage": cpu,
         "memory_usage": memory,
@@ -35,17 +48,22 @@ def get_system_info():
         "uptime": uptime
     }
 
-def save_to_file(data, filename="data/system_info.json"):
-    os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, "w") as f:
-        json.dump(data, f, indent=4)
+    # Save to file
+    base_dir = os.getenv("BASE_DIR")
+    file_path = os.path.join(base_dir, "data/system_info.json")
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    with open(file_path, "w") as f:
+        json.dump(info, f, indent=4)
+    logger.info(f"Data saved to {file_path}")
 
-def fetch_raspberry_system_info():
-    info = get_system_info()
-    save_to_file(info)
+    # Verify the file was updated
+    with open(file_path, "r") as f:
+        saved_data = json.load(f)
+    logger.info("Saved data: %s", saved_data)
+    logger.info("System info fetched and saved")
 
-def main():
-    fetch_raspberry_system_info()
+    logger.info("Fetch raspberry system info END")
+    logger.info("##########################################################")
 
 if __name__ == "__main__":
-    main()
+    fetch_and_save_raspberry_system_info()

@@ -59,6 +59,13 @@ def read_random_quote():
             return data
     return {"error": "Data not found"}
 
+def read_rescuetime_data():
+    file_path = os.path.join(base_dir, "data/rescuetime_data.json")
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+            return data
+    return {"error": "Data not found or invalid format"}
 
 # SocketIO Event Handlers (BACKEND, SERVER)
 # Listening for incoming connections such as `request_from_client_to_server_for_stock_data`
@@ -74,6 +81,7 @@ def event_handler_connect():
     emit('response_from_server_to_client_with_stock_data', read_stock_data())
     emit('response_from_server_to_client_with_cvbankas_data', read_cvbankas_data())
     emit('response_from_server_to_client_with_sensor_data', read_sensor_data())
+    emit('response_from_server_to_client_with_rescuetime_data', read_rescuetime_data())
 
 @socketio.on('request_from_client_to_server_for_stock_data')
 def event_handler_stock():
@@ -94,6 +102,10 @@ def event_handler_system_info():
 @socketio.on('request_from_client_to_server_for_random_quote_data')
 def event_handler_random_quote():
     emit('response_from_server_to_client_with_quote_data', read_random_quote())
+
+@socketio.on('request_from_client_to_server_for_rescuetime_data')
+def event_handler_rescuetime():
+    emit('response_from_server_to_client_with_rescuetime_data', read_rescuetime_data())
 
 @app.route("/")
 def home():

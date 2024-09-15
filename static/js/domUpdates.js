@@ -139,3 +139,19 @@ export function updateRandomQuote(data) {
         quoteDiv.textContent = `${data.quote.content} - ${data.quote.author}`;
     }
 }
+
+export function updateRescueTimeData(data) {
+    const rescueTimeDiv = document.getElementById('rescuetime_data');
+    if (rescueTimeDiv && data.rescuetime_data && data.rescuetime_data.ag) {
+        const agData = data.rescuetime_data.ag;
+        rescueTimeDiv.innerHTML = `
+            <span>Arvy's RescueTime for ${agData.date}:</span><br>
+            <span>Productive: ${agData.all_productive_duration_formatted}</span><br>
+            <span>Distracting: ${agData.all_distracting_duration_formatted}</span><br>
+            <span>Total Time: ${agData.total_duration_formatted}</span><br>
+            <span class="timestamp">Updated: ${data.fetch_date}</span>
+        `;
+    } else {
+        rescueTimeDiv.innerHTML = '<span>RescueTime data not available</span>';
+    }
+}

@@ -23,6 +23,9 @@
 # Run every day at 01:00 AM
 0 1 * * * /home/arvypi/venvs/venv-mm2/bin/python /home/arvypi/GIT/mm2/fetches/random_quote.py
 
+# Run every day at 02:00 AM
+0 2 * * * /home/arvypi/venvs/venv-mm2/bin/python /home/arvypi/GIT/mm2/fetches/rescuetime.py
+
 # Run every minute from 5:00 AM to 6:59 AM
 * 5-6 * * * /home/arvypi/venvs/venv-mm2/bin/python /home/arvypi/GIT/mm2/fetches/invest_fetch_stock_data.py
 * 5-6 * * * /home/arvypi/venvs/venv-mm2/bin/python /home/arvypi/GIT/mm2/fetches/cvbankas.py

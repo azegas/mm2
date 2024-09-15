@@ -59,9 +59,9 @@ def read_random_quote():
 
 
 # SocketIO Event Handlers (BACKEND, SERVER)
-# Listening for incoming connections such as `server_give_me_stock_data`
+# Listening for incoming connections such as `request_from_client_to_server_for_stock_data`
 # and sending back the data(that we received over `read_stock_data`) 
-# to the client over `client_here_is_stock_data`
+# to the client over `response_from_server_to_client_with_stock_data`
 
 @socketio.on('connect')
 def event_handler_connect():
@@ -69,29 +69,29 @@ def event_handler_connect():
     Event handler for client connection.
     When a client connects, it sends initial data for all components.
     """
-    emit('client_here_is_stock_data', read_stock_data())
-    emit('client_here_is_cvbankas_data', read_cvbankas_data())
-    emit('client_here_is_sensor_data', read_sensor_data())
+    emit('response_from_server_to_client_with_stock_data', read_stock_data())
+    emit('response_from_server_to_client_with_cvbankas_data', read_cvbankas_data())
+    emit('response_from_server_to_client_with_sensor_data', read_sensor_data())
 
-@socketio.on('server_give_me_stock_data')
+@socketio.on('request_from_client_to_server_for_stock_data')
 def event_handler_stock():
-    emit('client_here_is_stock_data', read_stock_data())
+    emit('response_from_server_to_client_with_stock_data', read_stock_data())
 
-@socketio.on('server_give_me_sensor_data')
+@socketio.on('request_from_client_to_server_for_sensor_data')
 def event_handler_sensor():
-    emit('client_here_is_sensor_data', read_sensor_data())
+    emit('response_from_server_to_client_with_sensor_data', read_sensor_data())
 
-@socketio.on('server_give_me_cvbankas_data')
+@socketio.on('request_from_client_to_server_for_cvbankas_data')
 def event_handler_cvbankas():
-    emit('client_here_is_cvbankas_data', read_cvbankas_data())
+    emit('response_from_server_to_client_with_cvbankas_data', read_cvbankas_data())
 
-@socketio.on('server_give_me_system_info')
+@socketio.on('request_from_client_to_server_for_system_info_data')
 def event_handler_system_info():
-    emit('client_here_is_system_info', read_system_info())
+    emit('response_from_server_to_client_with_system_info_data', read_system_info())
 
-@socketio.on('server_give_me_random_quote')
+@socketio.on('request_from_client_to_server_for_random_quote_data')
 def event_handler_random_quote():
-    emit('client_here_is_random_quote', read_random_quote())
+    emit('response_from_server_to_client_with_quote_data', read_random_quote())
 
 @app.route("/")
 def home():

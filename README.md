@@ -142,25 +142,25 @@ def read_cvbankas_data():
 ### Then we need to create a socket that the client can call:
 
 ```python
-@socketio.on('server_give_me_cvbankas_data') # this is the socket that the client will call
+@socketio.on('request_from_client_to_server_for_cvbankas_data') # this is the socket that the client will call
 def handle_cvbankas_update_request():
     # 'emit' is a Socket.IO method used to send events from the server to the client
     # An alternative could be 'send', but 'emit' is more flexible as it allows custom event names
-    # Here, it sends the 'client_here_is_cvbankas_data' event with the data from read_cvbankas_data()
-    emit('client_here_is_cvbankas_data', read_cvbankas_data())
+    # Here, it sends the 'response_from_server_to_client_with_cvbankas_data' event with the data from read_cvbankas_data()
+    emit('response_from_server_to_client_with_cvbankas_data', read_cvbankas_data())
 ```
 
 ### Then we describe how often the client will be calling the socket:
  
 ```js
 setInterval(() => {
-    socket.emit('server_give_me_cvbankas_data');
+    socket.emit('request_from_client_to_server_for_cvbankas_data');
 }, 1000);
 ```
 
 ### Describe what will happen when the data is received:
 
-Server emitted `client_here_is_cvbankas_data`, so when the client gets `client_here_is_cvbankas_data` and data with it, it will call `updateCvbankasData(data)` (create this js function) in `domUpdates.js`
+Server emitted `response_from_server_to_client_with_cvbankas_data`, so when the client gets `response_from_server_to_client_with_cvbankas_data` and data with it, it will call `updateCvbankasData(data)` (create this js function) in `domUpdates.js`
 
 Describe how the DOM will be changed with the received data:
 
@@ -173,7 +173,7 @@ export function updateCvbankasData(data) {
 Add this to `main.js`, dont forget to import the `updateCvbankasData` function from `domUpdates.js`
 
 ```js
-socket.on('client_here_is_cvbankas_data', (data) => {
+socket.on('response_from_server_to_client_with_cvbankas_data', (data) => {
     updateCvbankasData(data);
 });
 ```

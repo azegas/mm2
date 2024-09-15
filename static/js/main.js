@@ -5,7 +5,7 @@
  * and schedules periodic updates for various components of the application.
  */
 
-import { updateStockData, updateTextColors, updateSensorData, updateCvbankasData, updateCurrentTime, updateSystemInfo, updateRandomQuote, updateRescueTimeData } from './domUpdates.js';
+import { updateStockData, updateTextColors, updateSensorData, updateCvbankasData, updateCurrentTime, updateSystemInfo, updateRandomQuote, updateRescueTimeData, loadWeatherWidgets, refreshWeatherWidgets } from './domUpdates.js';
 
 
 // Schedule periodic update requests
@@ -37,6 +37,8 @@ setInterval(() => {
 
 setInterval(updateCurrentTime, 1000);
 
+setInterval(refreshWeatherWidgets, 3600000); // Refresh every one hour (3600000 milliseconds)
+
 
 // SocketIO Event Handlers (FRONTEND, CLIENT)
 
@@ -56,6 +58,7 @@ socket.on('connect', () => {
     socket.emit('request_from_client_to_server_for_random_quote_data');
     socket.emit('request_from_client_to_server_for_rescuetime_data');
     updateCurrentTime();
+    loadWeatherWidgets();
 });
 
 // Event listeners for various data updates

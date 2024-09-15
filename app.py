@@ -38,6 +38,8 @@ def read_cvbankas_data():
     if os.path.exists(file_path):
         with open(file_path, "r") as file:
             data = json.load(file)
+            if 'jobs' in data and isinstance(data['jobs'], list):
+                data['jobs'] = data['jobs'][:6]  # Limit to 6 jobs
             return data
     return {"error": "Data not found"}
 

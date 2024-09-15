@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import json
 import os
 import sys
-import logging
 from dotenv import load_dotenv
 from datetime import datetime
 
@@ -11,7 +10,7 @@ from datetime import datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from log_config import logger
-from config import CVBANKAS_KEYWORDS
+from config import CVBANKAS_KEYWORDS, CVBANKAS_IGNORE_KEYWORDS
 
 load_dotenv()
 
@@ -19,9 +18,8 @@ def fetch_cvbankas_jobs():
     logger.info("##########################################################")
     logger.info("Fetch CVBankas jobs START")
 
-    keywords = CVBANKAS_KEYWORDS
     jobs = []
-    for keyword in keywords:
+    for keyword in CVBANKAS_KEYWORDS:
         url = f"https://en.cvbankas.lt/?keyw={keyword}"
         
         try:
@@ -40,15 +38,15 @@ def fetch_cvbankas_jobs():
 
         jobs.extend(extract_jobs(job_list, keyword))
 
-    # Filter jobs with salary starting from 3500
-    filtered_jobs = [job for job in jobs if is_salary_above_3500(job['salary'])]
-
-    save_cvbankas_jobs(filtered_jobs)
-
-    logger.info(f"Successfully fetched job listings for keywords: {CVBANKAS_KEYWORDS}")
+    logger.info(f"Successfully fetched {len(jobs)} job listings for keywords: {CVBANKAS_KEYWORDS}")
     logger.info("Fetch CVBankas jobs END")
     logger.info("##########################################################")
 
+    return jobs
+
+def filter_cvbankas_jobs(jobs):
+    filtered_jobs = [job for job in jobs if is_salary_above(job['salary'], 3000) and not has_ignored_keywords(job['title'])]
+    logger.info(f"Filtered {len(filtered_jobs)} out of {len(jobs)} jobs")
     return filtered_jobs
 
 def extract_jobs(job_list, keyword):
@@ -85,15 +83,18 @@ def extract_image_link(article):
     img_elem = article.find('img')
     return img_elem['src'] if img_elem else "N/A"
 
-def is_salary_above_3500(salary):
+def is_salary_above(salary, min_salary):
     if salary == "N/A":
         return False
     try:
         # Extract the first number from the salary string
         salary_value = float(''.join(filter(str.isdigit, salary.split('-')[0])))
-        return salary_value >= 3500
+        return salary_value >= min_salary
     except ValueError:
         return False
+
+def has_ignored_keywords(title):
+    return any(keyword.lower() in title.lower() for keyword in CVBANKAS_IGNORE_KEYWORDS)
 
 def save_cvbankas_jobs(jobs):
     data_to_save = {
@@ -115,6 +116,8 @@ def save_cvbankas_jobs(jobs):
 
 def main():
     jobs = fetch_cvbankas_jobs()
+    filtered_jobs = filter_cvbankas_jobs(jobs)
+    save_cvbankas_jobs(filtered_jobs)
 
 if __name__ == "__main__":
     main()

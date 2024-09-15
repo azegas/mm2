@@ -9,11 +9,13 @@ SYMBOLS = [
     "META", 
     # "VUAA.L", 
     # "FRHC", 
-    "TM",
+    # "TM",
     "NVDA",
     "MSFT",
     "GOOGL",
-    "AMZN",    
+    "AMZN",
+    "BRK-B",
+    "AMD", # ale strong buy freedom24 sako
 ]
 HISTORICAL_URL = "https://query1.finance.yahoo.com/v7/finance/download/"
 START_DATE_UNIX = int(start_date.timestamp())
@@ -23,3 +25,4 @@ END_DATE_HUMAN = end_date.strftime('%Y-%m-%d')
 
 # CVBankas
 CVBANKAS_KEYWORDS = ["django", 'vadovas']
+CVBANKAS_IGNORE_KEYWORDS = ["Senior", "Stat", "Konstrukt", "aplinkos", "elektr", "ūki", "Šilum", "Pamain", "metal"]

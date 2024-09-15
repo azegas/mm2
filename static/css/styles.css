@@ -59,29 +59,16 @@ html, body {
 
 .symbol {
     font-size: 1.5rem;
-    font-weight: 400;
+    font-weight: bold;
 }
 
 .price {
-    line-height: 2.75rem;
-    font-size: 1.2em;
-    letter-spacing: 0;
-    font-weight: 400;
-    margin-right: 5px;
+    font-weight: bold;
 }
 
-.change {
-    font-size: 1rem;
-    font-weight: 500;
-    width: min-content;
-    margin-right: 5px;
-}
-
-.change-percent {
-    line-height: 1.5rem;
-    font-size: 1rem;
-    letter-spacing: .00625em;
-    font-weight: 500;
+.price-container {
+    font-size: 1em;
+    padding: 10px 0;
 }
 
 .green-text {
@@ -92,13 +79,20 @@ html, body {
     color: rgb(224, 27, 27);
 }
 
-.job-cards, .stock-cards {
+.stock-cards {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
 }
 
-.job-card, .stock-card {
+.job-cards {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.stock-card {
     display: flex;
     flex-direction: column;
     background-color: #111;
@@ -106,14 +100,20 @@ html, body {
     width: calc(33.33% - 20px); /* Adjust for 3 cards per row, considering margins */
 }
 
-.job-title, .stock-symbol {
-    margin-top: 10px;
+.job-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #111;
+    margin: 10px;
+}
+
+.job-title {
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
 .job-company, .job-salary, .stock-price, .stock-change {
-    font-size: 0.9rem;
-    margin-bottom: 5px;
+    padding: 10px 0;
 }
 
 .job-image {

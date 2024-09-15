@@ -7,5 +7,5 @@
 # since service will alrady be running, we just launch chromium and it should work?
 #!/bin/bash
 export DISPLAY=:0
-sleep 5
+sleep 30
 chromium-browser --start-fullscreen http://localhost:5000

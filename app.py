@@ -99,6 +99,10 @@ def home():
 
 if __name__ == "__main__":
     # Run the Flask application with SocketIO
-    socketio.run(app, debug=True, host='0.0.0.0', port=5000, 
-                 allow_unsafe_werkzeug=True # so could run as a service
-                 )
+    socketio.run(
+        app, 
+        debug=True, 
+        host='0.0.0.0', 
+        port=5000, # sudo lsof -i :5000 and sudo kill -9 PID
+        allow_unsafe_werkzeug=True # so could run as a service
+    )

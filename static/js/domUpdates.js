@@ -92,7 +92,6 @@ export function updateCvbankasData(data) {
         card.innerHTML = `
             <div class="job-info">
                 <div class="row">
-                    <img src="${job.image_link}" alt="${job.company} logo" class="job-image">
                     <span class="job-title">${job.title}</span>
                     <span class="data">
                         <span class="job-company">${job.company}</span>
@@ -108,7 +107,7 @@ export function updateCvbankasData(data) {
 
     // Add timestamp at the bottom of all jobs
     const timestampElement = document.createElement('p');
-    timestampElement.className = 'cvbankas-timestamp timestamp';
+    timestampElement.className = 'timestamp';
     timestampElement.textContent = `Jobs updated at: ${data.fetch_date}`;
     jobsContainer.appendChild(timestampElement);
 }

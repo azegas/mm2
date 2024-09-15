@@ -49,12 +49,11 @@ html, body {
 }
 
 .timestamp {
-    width: 100%;
-    line-height: 1rem;
     font-size: .75rem;
     letter-spacing: .025em;
-    font-weight: 400;
     color: rgb(95,99,104);
+    padding: 0;
+    margin: 0;
 }
 
 .symbol {
@@ -109,11 +108,20 @@ html, body {
 
 .job-title {
     font-size: 1.2rem;
-    font-weight: bold;
+    color: rgb(226, 49, 49);
 }
 
+.job-salary {
+    color: green;
+}
+
+.job-company {
+    font-size: .9rem;
+}
+
+
 .job-company, .job-salary, .stock-price, .stock-change {
-    padding: 10px 0;
+    padding: 5px 0;
 }
 
 .job-image {
@@ -150,7 +158,7 @@ html, body {
     flex-direction: row;
     font-size: 3rem;
     justify-content: space-between;
-    height: 100px;
+    height: 50px;
     margin: 10px;
 }
 

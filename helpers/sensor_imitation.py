@@ -12,7 +12,7 @@ base_dir = os.getenv("BASE_DIR")
 def generate_sensor_data():
     temperature = round(random.uniform(15, 35), 1)  # Temperature between 15°C and 35°C
     humidity = round(random.uniform(30, 90), 1)  # Humidity between 30% and 90%
-    last_update = datetime.now().strftime("%H:%M:%S")
+    last_update = datetime.now().strftime("%H:%M")
     return {"temperature": temperature, "humidity": humidity, "last_update": last_update}
 
 def write_to_file():

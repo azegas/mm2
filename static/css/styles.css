@@ -48,7 +48,7 @@ html, body {
     flex-direction: column;
 }
 
-.timestamp {
+.timestamp, .job-company {
     font-size: .75rem;
     letter-spacing: .025em;
     color: rgb(95,99,104);
@@ -108,20 +108,15 @@ html, body {
 
 .job-title {
     font-size: 1.2rem;
-    color: rgb(226, 49, 49);
+    color: rgb(199, 199, 35);
 }
-
-.job-salary {
-    color: green;
-}
-
-.job-company {
-    font-size: .9rem;
-}
-
 
 .job-company, .job-salary, .stock-price, .stock-change {
     padding: 5px 0;
+}
+
+.job-salary {
+    font-size: 0.9rem;
 }
 
 .job-image {
@@ -133,19 +128,29 @@ html, body {
     margin-bottom: 10px; /* Add a 10px gap under the job image */
 }
 
-#current-time {
+.time-sensor-data {
+    display: flex;
+    flex-direction: row;
     font-family: 'Digital-7', monospace;
-    font-size: 4rem;
+    padding: 0px 10px;
+    align-items: center;
+}
+
+#sensor_data {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    align-items: center;
+    align-content: center;
+    height: 100%;
+    font-size: 1.8rem;
+    width: 100px;
+}
+
+#current-time {
+    font-size: 3rem;
     color: #00ff00;
-    background-color: #000;
-    padding: 10px 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-    text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
-    letter-spacing: 2px;
-    width: 100%; /* Make it full width of the row */
-    box-sizing: border-box; /* Include padding in the width calculation */
-    text-align: center; /* Center the text within the full width */
+    width: 200px;
 }
 
 @font-face {
@@ -153,33 +158,9 @@ html, body {
     src: url('/static/fonts/digital-7.ttf') format('truetype');
 }
 
-.sensor-data {
-    display: flex;
-    flex-direction: row;
-    font-size: 3rem;
-    justify-content: space-between;
-    height: 50px;
-    margin: 10px;
-}
-
-.sensor-data img {
-    height: 90%;
-    display: block;
-    margin: auto;
-}
-
-.sensor-data-value {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 200px;
-    height: 100%;
-    padding-left: 10px;
-}
-
 #quote {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -199,4 +180,8 @@ html, body {
 
 #system_info {
     font-size: 1.2rem;
+}
+
+.weather-widget {
+    padding-bottom: 20px;
 }

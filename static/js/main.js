@@ -29,15 +29,15 @@ setInterval(() => {
 
 setInterval(() => {
     socket.emit('request_from_client_to_server_for_random_quote_data');
-}, 3600000); //1 hour
+}, 600000); // 10min
 
 setInterval(() => {
     socket.emit('request_from_client_to_server_for_rescuetime_data');
-}, 36000000); // 10 hours
+}, 10000); //10 sec
 
 setInterval(updateCurrentTime, 1000);
 
-setInterval(refreshWeatherWidgets, 3600000); // Refresh every one hour (3600000 milliseconds)
+setInterval(refreshWeatherWidgets, 600000); // Refresh every 10 minutes (600000 milliseconds)
 
 
 // SocketIO Event Handlers (FRONTEND, CLIENT)

@@ -36,35 +36,15 @@ export function updateStockData(data) {
         stockDiv.appendChild(timestampElement);
     }
 }
-
 export function updateSensorData(data) {
     const sensorDataDiv = document.getElementById('sensor_data');
     if (sensorDataDiv) {
         sensorDataDiv.innerHTML = ''; // Clear previous content
 
-        // Create temperature element
-        const temperatureDiv = document.createElement('div');
-        temperatureDiv.className = 'sensor-data';
-        temperatureDiv.innerHTML = `
-            <img src="/static/icons/temperature.png" alt="Temperature">
+        sensorDataDiv.innerHTML = `
             <span class="sensor-data-value">${data.temperature} °C</span>
-        `;
-        sensorDataDiv.appendChild(temperatureDiv);
-
-        // Create humidity element
-        const humidityDiv = document.createElement('div');
-        humidityDiv.className = 'sensor-data';
-        humidityDiv.innerHTML = `
-            <img src="/static/icons/humidity.png" alt="Humidity">
             <span class="sensor-data-value">${data.humidity} %</span>
         `;
-        sensorDataDiv.appendChild(humidityDiv);
-
-        // Create timestamp element
-        const timestampElement = document.createElement('small');
-        timestampElement.className = 'timestamp';
-        timestampElement.innerHTML = `Last Update - <span>${data.timestamp}</span>`;
-        sensorDataDiv.appendChild(timestampElement);
     }
 }
           
@@ -135,7 +115,10 @@ export function updateCurrentTime() {
 export function updateRandomQuote(data) {
     const quoteDiv = document.getElementById('quote');
     if (quoteDiv) {
-        quoteDiv.textContent = `${data.quote.content} - ${data.quote.author}`;
+        quoteDiv.innerHTML = `
+            <div>${data.quote.content} - ${data.quote.author}</div>
+            <div class="timestamp">Quote updated at: ${data.timestamp}</div>
+        `;
     }
 }
 
@@ -144,11 +127,11 @@ export function updateRescueTimeData(data) {
     if (rescueTimeDiv && data.rescuetime_data && data.rescuetime_data.ag) {
         const agData = data.rescuetime_data.ag;
         rescueTimeDiv.innerHTML = `
-            <span>Arvy's RescueTime for ${agData.date}:</span><br>
+            <span>Arvy's Screen Time for ${agData.date}:</span><br>
             <span>Productive: ${agData.all_productive_duration_formatted}</span><br>
             <span>Distracting: ${agData.all_distracting_duration_formatted}</span><br>
             <span>Total Time: ${agData.total_duration_formatted}</span><br>
-            <span class="timestamp">Updated: ${data.fetch_date}</span>
+            <span class="timestamp">Screen time updated at: ${data.fetch_date}</span>
         `;
     } else {
         rescueTimeDiv.innerHTML = '<span>RescueTime data not available</span>';
@@ -163,5 +146,29 @@ export function loadWeatherWidgets() {
 export function refreshWeatherWidgets() {
     if (window.__weatherwidget_init) {
         window.__weatherwidget_init();
+    }
+    
+    const weatherContainer = document.querySelector('.weather-widget');
+    if (weatherContainer) {
+        let weatherTimestampElement = document.getElementById('weather-timestamp');
+        if (!weatherTimestampElement) {
+            weatherTimestampElement = document.createElement('div');
+            weatherTimestampElement.id = 'weather-timestamp';
+            weatherTimestampElement.className = 'timestamp';
+            weatherContainer.appendChild(weatherTimestampElement);
+        }
+
+        const currentTimeElement = document.createElement('span');
+        currentTimeElement.id = 'weather-current-time';
+        weatherTimestampElement.textContent = 'Weather updated at: ';
+        weatherTimestampElement.appendChild(currentTimeElement);
+        
+        // Use the existing updateCurrentTime function
+        const updateWeatherTimestamp = () => {
+            updateCurrentTime();
+            currentTimeElement.textContent = document.getElementById('current-time').textContent;
+        };
+        
+        updateWeatherTimestamp();
     }
 }

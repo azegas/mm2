@@ -38,7 +38,7 @@ def fetch_random_quote():
 def write_quote_to_file(quote):
     output = {
         "quote": quote,
-        "timestamp": datetime.now().isoformat()
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M")
     }
     
     base_dir = os.getenv("BASE_DIR")

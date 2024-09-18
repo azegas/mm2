@@ -4,9 +4,13 @@ Magic mirror 2
 
 # TODO
 
-- [ ] max 9 jobs gali buti atvaizduojami
+- [x] max 9 jobs gali buti atvaizduojami
+- [ ] wind information
+- [ ] spanish word of the day
+- [x] paziurek ideju is lifeapi
+- [x] pridek rescuetime data
 - [x] koks oras madride
-- [ ] pamegink linkedina del job searches
+- [x] pamegink linkedina del job searches
 - [x] pamegink google calendar embed i website (jokiu fetchu hopefully...) - possible, did it, but not actually needed for us
 - [ ] arba google trends explore trends - https://trends.google.com/trends/explore?hl=en-GB
 - [ ] google trends paskutiniu 24val LT - https://trends.google.com/trending?geo=LT&hl=en-GB&hours=24

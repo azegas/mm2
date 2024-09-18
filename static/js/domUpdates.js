@@ -19,7 +19,6 @@ export function updateStockData(data) {
                                 <span class="change">${details.change}</span>
                                 <span class="change-percent">${details.change_percent}</span>
                             </span>
-                            <small class="one-year-estimate">1y Est - $${details.one_year_estimate}</small>
                         </span>
                     </div>
                 </div>

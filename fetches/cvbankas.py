@@ -20,23 +20,26 @@ def fetch_cvbankas_jobs():
 
     jobs = []
     for keyword in CVBANKAS_KEYWORDS:
-        url = f"https://en.cvbankas.lt/?keyw={keyword}"
-        
-        try:
-            response = requests.get(url)
-            response.raise_for_status()
-        except requests.RequestException as e:
-            logger.error(f"Error fetching data from CVBankas for {keyword}: {e}")
-            continue
+        for page in range(1, 6):
+            url = f"https://en.cvbankas.lt/?keyw={keyword}&page={page}"
+            
+            try:
+                response = requests.get(url)
+                response.raise_for_status()
+            except requests.RequestException as e:
+                logger.error(f"Error fetching data from CVBankas for {keyword} page {page}: {e}")
+                continue
 
-        soup = BeautifulSoup(response.text, 'html.parser')
-        job_list = soup.find(id="js_id_id_job_ad_list")
-        
-        if not job_list:
-            logger.warning(f"Could not find job list on the page for {keyword}")
-            continue
+            soup = BeautifulSoup(response.text, 'html.parser')
+            job_list = soup.find(id="js_id_id_job_ad_list")
+            
+            if not job_list:
+                logger.warning(f"Could not find job list on the page for {keyword} page {page}")
+                continue
 
-        jobs.extend(extract_jobs(job_list, keyword))
+            jobs.extend(extract_jobs(job_list, keyword))
+
+        logger.info(f"Fetched jobs for keyword: {keyword}")
 
     logger.info(f"Successfully fetched {len(jobs)} job listings for keywords: {CVBANKAS_KEYWORDS}")
     logger.info("Fetch CVBankas jobs END")

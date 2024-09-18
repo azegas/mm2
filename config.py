@@ -25,4 +25,4 @@ END_DATE_HUMAN = end_date.strftime('%Y-%m-%d')
 
 # CVBankas
 CVBANKAS_KEYWORDS = ["django", 'vadovas']
-CVBANKAS_IGNORE_KEYWORDS = ["Senior", "Stat", "Konstrukt", "aplinkos", "elektr", "ūki", "Šilum", "Pamain", "metal"]
+CVBANKAS_IGNORE_KEYWORDS = ["Senior", "Stat", "Konstrukt", "aplinkos", "elektr", "ūki", "Šilum", "Pamain", "metal", "pardavim", "personal", "rinkod", "auto" ]

@@ -5,6 +5,8 @@ Magic mirror 2
 # TODO
 
 - [x] max 9 jobs gali buti atvaizduojami
+- [x] write date when job was posted
+- [x] filter by job company
 - [ ] wind information
 - [ ] spanish word of the day
 - [x] paziurek ideju is lifeapi

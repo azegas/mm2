@@ -84,6 +84,12 @@ html, body {
     width: 100%;
 }
 
+.job-location-posted {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.8rem;
+}
+
 .job-cards {
     display: flex;
     flex-direction: column;

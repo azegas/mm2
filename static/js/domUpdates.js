@@ -68,6 +68,15 @@ export function updateCvbankasData(data) {
     data.jobs.forEach(job => {
         const card = document.createElement('div');
         card.className = 'job-card';
+        let jobPostedClass = '';
+        if (job.job_posted.toLowerCase().includes('left')) {
+            jobPostedClass = 'red-text';
+        } else if (job.job_posted.toLowerCase().includes('minutes') || 
+                   job.job_posted.toLowerCase().includes('hours') ||
+                   job.job_posted.toLowerCase().includes('1 day') ||
+                   job.job_posted.toLowerCase().includes('2 day')) {
+            jobPostedClass = 'green-text';
+        }
         card.innerHTML = `
             <div class="job-info">
                 <div class="row">
@@ -75,6 +84,7 @@ export function updateCvbankasData(data) {
                     <span class="data">
                         <span class="job-company">${job.company}</span>
                         <span class="job-salary">${job.salary}</span>
+                        <span class="job-location-posted">${job.city},&nbsp;<span class="${jobPostedClass}">${job.job_posted}</span></span>
                     </span>
                 </div>
             </div>

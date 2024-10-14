@@ -1,10 +1,69 @@
-# mm2 
+# mms == Magic mirror 2
 
-Magic mirror 2
+## Install rasberry OS
 
-# TODO
+Use `Raspberry pi imager` bla.
+
+For options:
+
+```bash
+sudo raspi-config
+```
+
+## Vertical monitor mode
+
+I wish there was `screen layout editor` GUI in raspi settings display section present by default ([like here](https://www.makeuseof.com/how-to-rotate-your-raspberry-pi-screen-without-moving-the-display)), but it's not, so have to do it over the terminal.
+
+```bash
+# check what my display is named (HDMI-0 or HDMI-1) 
+xrandr
+# rotate the display (no reboot needed)
+xrandr --output HDMI-1 --rotate left
+```
+
+
+Lasting GUI way:
+
+To install the "Screen Configuration" tool (known as arandr or the Raspberry Pi "Screen Layout Editor") on your Raspberry Pi, follow these steps:
+
+```bash
+sudo apt install arandr
+```
+
+Tuomet preferences -> screen configuration -> layout -> bla ir nusistatyk kaip reikia.
+
+
+## If GUI is not working anymore
+
+Default GUI - `pixel desktop`.
+
+```bash
+sudo apt update
+sudo apt upgrade
+sudo apt install --reinstall raspberrypi-ui-mods
+sudo raspi-config
+
+# Go to System Options.
+# Select Boot/Auto Login.
+# Choose Desktop GUI, automatically logged in or Desktop GUI, 
+# requiring login based on your preference.
+
+# reboot pi
+```
+
+## About all the services
+
+## About cronjobs
+
+## Start chromium automatically by default
+
+`start_chromium.sh` file.
+
+
+# Things TODO
 
 - [x] max 9 jobs gali buti atvaizduojami
+- [ ] write to file how the temperature went during the night. Take reading at 5 different points in time maybe? separate cronjob? Then display them during in the magic mirror.
 - [x] write date when job was posted
 - [x] filter by job company
 - [ ] wind information

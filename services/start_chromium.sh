@@ -4,7 +4,7 @@
 # @/home/arvypi/GIT/mm2/services/start_chromium.sh
 
 
-# since service will alrady be running, we just launch chromium and it should work?
+# since service will already be running, we just launch chromium and it should work?
 #!/bin/bash
 export DISPLAY=:0
 sleep 30
